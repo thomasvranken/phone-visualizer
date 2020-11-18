@@ -1,0 +1,25 @@
+.App {
+  height: 100vh;
+  background-color: lightgray;
+}
+
+/* .outline-image {
+  outline: 6px solid black;
+} */
+
+.specs-table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  color: #000000;
+}
+
+.specs-table td, .specs-table th {
+  border: 1px solid #000000;
+  text-align: left;
+  padding: 2px 4px;
+}
+
+.specs-div {
+  margin-bottom: 15px;
+}

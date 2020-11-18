@@ -1,0 +1,182 @@
+[{
+        "brand": "Samsung",
+        "name": "Galaxy S10+",
+        "price": {
+            "base": {
+                "eur": 799,
+                "cent": 0
+            }
+        },
+        "os": {
+            "type": "Android",
+            "version": 9
+        },
+        "cpu": {
+            "benchmark": 123675
+        },
+        "ram": 6,
+        "storage": 128,
+        "battery": {
+            "wifi": {
+                "hours": 11,
+                "minutes": 34
+            }
+        },
+        "camera": {
+            "dxo": {
+                "general": 113,
+                "photo": 120,
+                "video": 97,
+                "approximate": false
+            },
+            "specs": {}
+        },
+        "symbolId": 0,
+        "image": "samsung-galaxy-s10p.png"
+    },
+    {
+        "brand": "Xiaomi",
+        "name": "Mi 9",
+        "price": {
+            "base": {
+                "eur": 339,
+                "cent": 0
+            }
+        },
+        "os": {
+            "type": "Android",
+            "version": 9
+        },
+        "cpu": {
+            "benchmark": 137326
+        },
+        "ram": 6,
+        "storage": 128,
+        "battery": {
+            "wifi": {
+                "hours": 8,
+                "minutes": 53
+            }
+        },
+        "camera": {
+            "dxo": {
+                "general": 110,
+                "photo": 115,
+                "video": 99,
+                "approximate": false
+            },
+            "specs": {
+                "features": "Dual-LED flash, HDR, panorama",
+                "aantalAchteraan": 3,
+                "aantalVooraan": 1
+            }
+        },
+        "symbolId": 1,
+        "image": "xiaomi-mi-9.jpg"
+    },
+    {
+        "brand": "Apple",
+        "name": "iPhone 11",
+        "price": {
+            "base": {
+                "eur": 755,
+                "cent": 40
+            }
+        },
+        "os": {
+            "type": "iOS",
+            "version": 13
+        },
+        "cpu": {
+            "benchmark": 419453
+        },
+        "ram": 4,
+        "storage": 128,
+        "battery": {
+            "wifi": {
+                "hours": 13,
+                "minutes": 8
+            }
+        },
+        "camera": {
+            "dxo": {
+                "general": 109,
+                "photo": 112,
+                "video": 101,
+                "approximate": false
+            },
+            "specs": {}
+        },
+        "symbolId": 2
+    },
+    {
+        "brand": "Huawei",
+        "name": "P30 Pro",
+        "price": {
+            "base": {
+                "eur": 579,
+                "cent": 0
+            }
+        },
+        "os": {
+            "type": "Android",
+            "version": 9
+        },
+        "cpu": {
+            "benchmark": 316156
+        },
+        "ram": 8,
+        "storage": 128,
+        "battery": {
+            "wifi": {
+                "hours": 13,
+                "minutes": 57
+            }
+        },
+        "camera": {
+            "dxo": {
+                "general": 116,
+                "photo": 125,
+                "video": 97,
+                "approximate": false
+            },
+            "specs": {}
+        },
+        "symbolId": 3
+    },
+    {
+        "brand": "Samsung",
+        "name": "Galaxy Note 10+",
+        "price": {
+            "base": {
+                "eur": 849,
+                "cent": 0
+            }
+        },
+        "os": {
+            "type": "Android",
+            "version": 9
+        },
+        "cpu": {
+            "benchmark": 342208
+        },
+        "ram": 12,
+        "storage": 256,
+        "battery": {
+            "wifi": {
+                "hours": 12,
+                "minutes": 17
+            }
+        },
+        "camera": {
+            "dxo": {
+                "general": 117,
+                "photo": 126,
+                "video": 98,
+                "approximate": false
+            },
+            "specs": {}
+        },
+        "symbolId": 4
+    }
+]
