@@ -82,20 +82,43 @@ function PhoneSpecs(props: {
     let x = rect.x;
     if (node) {
       const phoneListRect = node.getBoundingClientRect();
+      // only track phones in active part of screen
+      const newList = trackedPhones.filter((tp) => tp.id !== phone.symbolId);
       if (x < phoneListRect.x) {
-        const tracked = {
-          id: phone.symbolId,
-          rect: rect,
-          color: trackedColors[phone.symbolId],
-        };
-        const list = trackedPhones.filter(
-          (tracked) => tracked.id !== phone.symbolId
-        );
-        list.push(tracked);
-        setTrackedPhones(list);
+        let tpIndex = trackedPhones.findIndex((tp) => tp.id === phone.symbolId);
+        if (tpIndex > -1) {
+          // phone already known, just change rect
+          let tracked = {
+            id: phone.symbolId,
+            rect: rect,
+            color: trackedPhones[tpIndex].color,
+          };
+          newList.push(tracked);
+          setTrackedPhones(newList);
+        } else {
+          // new tracked phone needs a free color
+          let tracked = {
+            id: phone.symbolId,
+            rect: rect,
+            color: "white",
+          };
+          let i = 0;
+          let stop = false;
+          while (i < trackedColors.length && !stop) {
+            let color = trackedColors[i];
+            let colorInUse = trackedPhones.find((tp) => tp.color === color);
+            if (colorInUse) {
+              i += 1;
+            } else {
+              tracked.color = color;
+              newList.push(tracked);
+              setTrackedPhones(newList);
+              stop = true;
+            }
+          }
+        }
       } else {
-        const list = trackedPhones.filter((tp) => tp.id !== phone.symbolId);
-        setTrackedPhones(list);
+        setTrackedPhones(newList);
       }
     }
     console.log("now tracking", trackedPhones.length, "phones");
@@ -171,11 +194,12 @@ function PhoneSpecs(props: {
                 zIndex: 10,
                 width: 60,
                 height: 100,
-                backgroundColor: trackedColors[tp.id],
+                backgroundColor: tp.color,
               }}
             ></div>
           );
-        } return null;
+        }
+        return null;
       })}
     </div>
   );

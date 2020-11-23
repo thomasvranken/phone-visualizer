@@ -3,9 +3,9 @@
   background-color: lightgray;
 }
 
-/* .outline-image {
+.outline-image {
   outline: 6px solid black;
-} */
+}
 
 .specs-table {
   font-family: arial, sans-serif;
@@ -22,4 +22,8 @@
 
 .specs-div {
   margin-bottom: 15px;
+}
+
+.specs-p {
+  margin: 1px
 }

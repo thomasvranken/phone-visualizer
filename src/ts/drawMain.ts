@@ -9,6 +9,7 @@ import batteryIcon from "../images/icons/battery.png";
 import cpuIcon from "../images/icons/cpu.png";
 import ramIcon from "../images/icons/ram.png";
 import storageIcon from "../images/icons/storage.png";
+import { categoryColors } from "./category";
 
 /**
  * The main graph, a radial chart displaying the most important properties.
@@ -89,7 +90,7 @@ export class MainGraph extends Graph {
       phoneRepo.maxProps.storage
     );
 
-    let slices = [cameraSlice, batterySlice, cpuSlice, ramSlice, storageSlice];
+    let slices = [cameraSlice, batterySlice, ramSlice, cpuSlice, storageSlice];
     let priceVal =
       smartphone.price.base.eur + smartphone.price.base.cent * 0.01;
     let generalInfo = {
@@ -124,8 +125,8 @@ export class MainGraph extends Graph {
       .append("text")
       .text((d) => d)
       .attr("transform", (d) => {
-        let res = "translate(0," + -textRadius + ")";
         textRadius -= 30;
+        let res = "translate(0," + -textRadius + ")";
         return res;
       })
       .style("text-anchor", "middle")
@@ -172,32 +173,26 @@ export class MainGraph extends Graph {
       .data(slices)
       .enter()
       .append("image")
-      .each(function (s) {
-        //Issue: centroid does not actually return coordinates?
-        let centroid = arcGenerator.centroid(s);
+      .each(function (s, i) {
         let iconLength = 20;
-        // let x = centroid[0] + iconLength / 2;
-        // let y = centroid[1] + iconLength / 2;
-        // let iconRadius = 60;
-        // let actualRadius = Math.sqrt(
-        //   Math.pow(phoneRelX - x, 2) + Math.pow(phoneRelY - y, 2)
-        // );
-        // console.log("centroid", centroid[0],centroid[1])
-        // console.log("icon pos:", x, y)
-        // console.log("actual radius", actualRadius);
-        // let scaleFactor = iconRadius / actualRadius;
-        // console.log(
-        //   "corrected:",
-        //   Math.sqrt((phoneAbsX - x) ** 2 + (phoneAbsY - y) ** 2)
-        // );
+        let iconRadius = 65;
+        let arcLength = Math.PI * 2 / (slices.length+1)
+        let angle = arcLength * (i-0.5)
+        let x = Math.cos(angle) * iconRadius;
+        let y = Math.sin(angle) * iconRadius;
         d3.select(this)
           .attr("xlink:href", s.imageName)
-          .attr("x", 0.8 * (centroid[0] - 10))
-          .attr("y", 0.8 * (centroid[1] - 10))
-          .classed("outline-image", true)
+          .attr("x", x)
+          .attr("y", y)
+          // .classed("outline-image", true)
           .style("fill", "black")
           .attr("width", iconLength)
-          .attr("height", iconLength);
+          .attr("height", iconLength)
+          .attr("transform", (d) => {
+            let res =
+              "translate(" + -iconLength / 2 + "," + -iconLength / 2 + ")";
+            return res;
+          });
       });
 
     // Draw descriptions
@@ -205,17 +200,22 @@ export class MainGraph extends Graph {
       .selectAll(".descr")
       .data(slices)
       .enter()
-      .each(function (s) {
-        let centroid = arcGenerator.centroid(s);
+      .each(function (s,i) {
+        let textRadius = 95;
+        let arcLength = Math.PI * 2 / (slices.length+1)
+        let angle = arcLength * (i-0.5)
+        let x = Math.cos(angle) * textRadius;
+        let y = Math.sin(angle) * textRadius;
         sliceGroup
           .append("text")
           .classed("descr", true)
           .text(s.getDescription())
-          .attr("x", 1.1 * centroid[0])
-          .attr("y", 1.1 * centroid[1])
+          .attr("x", x)
+          .attr("y", y)
+          // .attr("transform", `rotate(45, ${x} ${y}) translate`)
           .style("fill", "black")
           .style("text-anchor", "middle")
-          .style("dominant-baseline", "middle");
+          // .style("dominant-baseline", "middle");
       });
   }
 
@@ -282,25 +282,25 @@ class PropertySlice {
 
 class CameraSlice extends PropertySlice {
   constructor(value: number, min: number, max: number) {
-    super("blue", value, min, max, cameraIcon);
+    super(categoryColors.camera, value, min, max, cameraIcon);
   }
 }
 
 class BatterySlice extends PropertySlice {
   constructor(value: number, min: number, max: number) {
-    super("yellow", value, min, max, batteryIcon);
+    super(categoryColors.battery, value, min, max, batteryIcon);
   }
 }
 
 class CPUSlice extends PropertySlice {
   constructor(value: number, min: number, max: number) {
-    super("purple", value, min, max, cpuIcon);
+    super(categoryColors.cpu, value, min, max, cpuIcon);
   }
 }
 
 class RAMSlice extends PropertySlice {
   constructor(value: number, min: number, max: number) {
-    super("red", value, min, max, ramIcon);
+    super(categoryColors.memory, value, min, max, ramIcon);
   }
 
   getDescription(): string {
@@ -310,7 +310,8 @@ class RAMSlice extends PropertySlice {
 
 class StorageSlice extends PropertySlice {
   constructor(value: number, min: number, max: number) {
-    super("orange", value, min, max, storageIcon);
+    let c = d3.color(categoryColors.memory)?.darker().toString();
+    super(c || "orange", value, min, max, storageIcon);
   }
 
   getDescription(): string {

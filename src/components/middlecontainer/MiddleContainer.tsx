@@ -6,6 +6,7 @@ import { Box, ButtonGroup, Button, withStyles, Theme } from "@material-ui/core";
 import { Category, MainCategory } from "../../ts/category";
 import PhoneStrip from "../phonestrip/PhoneStrip";
 import { PhoneRepository } from "../../ts/repository";
+import classes from "*.module.css";
 
 function MiddleContainer(props: {
   phoneRepo: PhoneRepository;
@@ -20,9 +21,6 @@ function MiddleContainer(props: {
       root: {
         color: theme.palette.getContrastText(color),
         backgroundColor: color,
-        // "&:hover": {
-        //   backgroundColor: green[400],
-        // },
       },
     }))(Button);
     return (
@@ -47,7 +45,7 @@ function MiddleContainer(props: {
   } else {
     return (
       <Box height={1} display="flex" flexDirection="column">
-        <Box style={{ height: "8%" }}>
+        <Box style={{ height: "40px" }}>
           <ButtonGroup color="primary">
             {props.active.graphs.map((graph) => drawButton(graph))}
           </ButtonGroup>

@@ -10,8 +10,19 @@ class TableEntry {
   constructor(public fieldName: string, public fieldDescription: string) {}
 }
 
+/**
+ * A class for drawing tabular visualisations
+ * of technical phone specifications.
+ */
 class TechnicalSpecs extends Graph {
-  constructor(public table: TableEntry[]) {
+  /**
+   * Constructs an object for drawing tables for a given set of specs.
+   * @param table A list of TableEntry, each entry has a field name
+   * and a longer description.
+   * @param superFields A list of fieldnames that have to be traversed
+   * in a Phone object to get to certain specs.
+   */
+  constructor(public table: TableEntry[], public superFields: string[]) {
     super("Specificaties", "Technisch specificaties");
   }
 
@@ -29,19 +40,25 @@ class TechnicalSpecs extends Graph {
     trackedPhones.forEach((tp, i) => {
       let phone = phoneRepo.database.find((p) => p.symbolId === tp.id);
       if (phone) {
-        this.drawSpecsTable(phone,tp);
+        this.drawSpecsTable(phone, tp, this.superFields);
       }
     });
   }
 
-  drawSpecsTable(phone: Phone, tracked: TrackedPhone) {
-    let specsDiv = d3.select("#" + chartId).append("div").classed("specs-div", true);
+  drawSpecsTable(phone: Phone, tracked: TrackedPhone, superFields: string[]) {
+    let specs: any = phone;
+    for (let field of superFields) {
+      specs = specs[field];
+    }
+    let specsDiv = d3
+      .select("#" + chartId)
+      .append("div")
+      .classed("specs-div", true);
     specsDiv
       .append("h6")
       .text(`${phone.brand} ${phone.name}`)
       .style("color", tracked.color)
-      .style("text-align", "left")
-    //   .attr("alig");
+      .style("text-align", "left");
     let tableElement = specsDiv
       .append("table")
       .attr("id", SPECS_TABLE_CLASS)
@@ -54,10 +71,16 @@ class TechnicalSpecs extends Graph {
       .each(function (entry) {
         let row = d3.select(this);
         let field = entry.fieldName;
-        if (phone.camera.specs.has(field)) {
+        if (specs.has(field)) {
           row.append("td").text(entry.fieldDescription);
-          let text: any = phone.camera.specs.get(field);
-          row.append("td").text(text);
+          let text: any = specs.get(field).toString();
+          console.log(text);
+          let parts = text.split("\n");
+          let details = row.append("td");
+          for (let part of parts) {
+            details.append("p").text(part).classed("specs-p", true);
+          }
+          //   row.append("td").text(text);
         }
       });
   }
@@ -65,10 +88,29 @@ class TechnicalSpecs extends Graph {
 
 export class CameraSpecs extends TechnicalSpecs {
   constructor() {
-    super([
-      new TableEntry("features", "Extra features"),
-      new TableEntry("aantalAchteraan", "Aantal camera's achteraan"),
-      new TableEntry("aantalVooraan", "Aantal camera's vooraan"),
-    ]);
+    super(
+      [
+        new TableEntry("aantalCameras", "Aantal camera's"),
+        new TableEntry("achteraan", "Kenmerken achteraan"),
+        new TableEntry("featuresAchteraan", "Features achteraan"),
+        new TableEntry("videoAchteraan", "Video achteraan"),
+        new TableEntry("vooraan", "Kenmerken vooraan"),
+        new TableEntry("featuresVooraan", "Features vooraan"),
+        new TableEntry("videoVooraan", "Video vooraan"),
+      ],
+      ["camera", "specs"]
+    );
+  }
+}
+
+export class BatterySpecs extends TechnicalSpecs {
+  constructor() {
+    super(
+      [
+        new TableEntry("type", "Type"),
+        new TableEntry("charging", "Laden"),
+      ],
+      ["battery", "specs"]
+    );
   }
 }

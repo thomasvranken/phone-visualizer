@@ -19,6 +19,7 @@ export type Phone = {
   };
   battery: {
     wifi: Duration;
+    specs: Map<string, string>;
   };
   camera: {
     dxo: {
@@ -34,6 +35,10 @@ export type Phone = {
   cpu: {
     benchmark: number;
   };
+  display: {
+    contrastSun: number | undefined;
+    contrastNom: number | undefined;
+  }
   symbolId: number;
   image?: string;
 };

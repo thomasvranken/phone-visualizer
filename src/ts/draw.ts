@@ -53,8 +53,8 @@ class BarChart extends Graph {
     const ids = trackedPhones.map((tp) => tp.id);
     let data: BarChartData[] = phones.map((p) => {
       return { value: this.getChartValue(p), id: p.symbolId };
-    });
-    console.log("data for drawing:", data)
+    }).filter(p => p.value !== undefined) as BarChartData[];
+    // console.log("bars for drawing:", data.length)
     data.sort((a, b) => b.value - a.value);
     let marginHorizontal = 5,
       marginVertical = 5;
@@ -157,8 +157,8 @@ class BarChart extends Graph {
    * the property is being plotted.
    * @param phone
    */
-  getChartValue(phone: Phone): number {
-    return 0;
+  getChartValue(phone: Phone): number | undefined {
+    return undefined;
   }
 
   /**
@@ -192,7 +192,7 @@ export class CameraGeneralChart extends BarChart {
 
 export class PhotoChart extends BarChart {
   constructor() {
-    super("Foto's", "DXO Score voor het nemen van foto's (dxomark.com)");
+    super("Foto's", "DXO score voor het nemen van foto's (dxomark.com)");
   }
   getChartValue(phone: Phone) {
     return phone.camera.dxo.photo;
@@ -201,7 +201,7 @@ export class PhotoChart extends BarChart {
 
 export class VideoChart extends BarChart {
   constructor() {
-    super("Video's", "DXO score voor het maken van videos (dxomark.com)");
+    super("Video's", "DXO score voor het maken van video's (dxomark.com)");
   }
   getChartValue(phone: Phone) {
     return phone.camera.dxo.video;
@@ -217,12 +217,7 @@ export class BatteryWifiChart extends BarChart {
   }
 
   getChartValue(phone: Phone) {
-    console.log("pohne data for battery:", phone)
-    console.log(phone.battery.wifi);
     return phone.battery.wifi.asHours()
-    // return moment
-    //   .duration(`${phone.battery.wifi.hours}:${phone.battery.wifi.minutes}`)
-    //   .asHours();
   }
 
   convertToText(value: number) {
@@ -269,20 +264,17 @@ export class CPUPowerChart extends BarChart {
     super("Rekenkracht", "Rekenkracht");
   }
   getChartValue(phone: Phone) {
-    //TODO deal with phones without data
     return phone.cpu.benchmark
   }
 }
 
-function getSvgWidth(
-  svg: d3.Selection<d3.BaseType, unknown, HTMLElement, any>
-): number {
-  console.log(svg);
-  return parseInt(svg.style("width").replace("px", ""));
-}
-
-function getSvgHeight(
-  svg: d3.Selection<d3.BaseType, unknown, HTMLElement, any>
-): number {
-  return +svg.style("height").replace("px", "");
+export class DisplayContrastSunChart extends BarChart {
+  constructor() {
+    super("Contrast", "Contrast ratio in zonlicht (GSMarena.com)");
+  }
+  getChartValue(phone: Phone) {
+    if (phone.display.contrastSun) {
+      return phone.display.contrastSun as number
+    } return undefined
+  }
 }

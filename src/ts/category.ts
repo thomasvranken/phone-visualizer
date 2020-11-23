@@ -1,7 +1,7 @@
-import { PhotoChart, Graph, BatteryWifiChart, VideoChart, CameraGeneralChart, BasePriceChart, WorkingMemoryChart, CPUPowerChart, StorageChart } from "./draw";
+import { PhotoChart, Graph, BatteryWifiChart, VideoChart, CameraGeneralChart, BasePriceChart, WorkingMemoryChart, CPUPowerChart, StorageChart, DisplayContrastSunChart } from "./draw";
 import * as d3 from "d3";
 import { MainGraph } from "./drawMain";
-import { CameraSpecs } from "./drawSpecs";
+import { BatterySpecs, CameraSpecs } from "./drawSpecs";
 
 /**
  * A generic class representing a category of properties for smartphone.
@@ -22,13 +22,25 @@ export class Category {
   }
 }
 
+export const categoryColors = {
+  "main": d3.schemeCategory10[9],
+  "price": d3.schemeCategory10[5],
+  "camera": d3.schemeCategory10[0],
+  "battery": d3.schemeCategory10[1],
+  "memory": d3.schemeCategory10[8],
+  "cpu": d3.schemeCategory10[2],
+  "screen": d3.schemeCategory10[3],
+  "connectivity": d3.schemeCategory10[7],
+  "features": d3.schemeCategory10[4],
+}
+
 /**
  * The main category, which consists of a single graph 
  * for displaying the most important properties.
  */
 export class MainCategory extends Category {
   constructor() {
-    super("overzicht",[new MainGraph()], d3.schemeCategory10[0]);
+    super("overzicht",[new MainGraph()], categoryColors.main);
   }
 }
 
@@ -37,48 +49,48 @@ export class MainCategory extends Category {
  */
 export class CameraCategory extends Category {
   constructor() {
-    super("camera",[new CameraGeneralChart(), new PhotoChart(), new VideoChart(), new CameraSpecs()], d3.schemeCategory10[0]);
+    super("camera",[new CameraGeneralChart(), new PhotoChart(), new VideoChart(), new CameraSpecs()], categoryColors.camera);
   }
 }
 
 export class BatteryCategory extends Category {
   constructor() {
-    super("batterij",[new BatteryWifiChart()], d3.schemeCategory10[1]);
+    super("batterij",[new BatteryWifiChart(), new BatterySpecs()], categoryColors.battery);
   }
 }
 
 export class PriceCategory extends Category {
   constructor() {
-    super("prijs",[new BasePriceChart()], d3.schemeCategory10[2]);
+    super("prijs",[new BasePriceChart()], categoryColors.price);
   }
 }
 
 export class MemoryCategory extends Category {
   constructor() {
-    super("geheugen en opslag",[new WorkingMemoryChart(), new StorageChart()], d3.schemeCategory10[3]);
+    super("geheugen en opslag",[new WorkingMemoryChart(), new StorageChart()], categoryColors.memory);
   }
 }
 
 export class OSCategory extends Category {
   constructor() {
-    super("OS en processor",[new CPUPowerChart()], d3.schemeCategory10[4]);
+    super("OS en processor",[new CPUPowerChart()], categoryColors.cpu);
   }
 }
 
 export class ScreenCategory extends Category {
   constructor() {
-    super("Scherm en weergave",[], d3.schemeCategory10[5]);
+    super("Scherm en weergave",[new DisplayContrastSunChart()], categoryColors.screen);
   }
 }
 
 export class ConnectivityCategory extends Category {
   constructor() {
-    super("Connectiviteit",[], d3.schemeCategory10[6]);
+    super("Connectiviteit",[], categoryColors.connectivity);
   }
 }
 
 export class FeaturesCategory extends Category {
   constructor() {
-    super("Poorten en features",[], d3.schemeCategory10[7]);
+    super("Poorten en features",[], categoryColors.features);
   }
 }

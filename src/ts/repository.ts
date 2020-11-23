@@ -58,6 +58,7 @@ export class PhoneRepository {
         `${d.battery.wifi.hours}:${d.battery.wifi.minutes}`
       );
       d.camera.specs = new Map(Object.entries(d.camera.specs));
+      d.battery.specs = new Map(Object.entries(d.battery.specs));
     });
     console.log("data for rest of program:", result)
     return result

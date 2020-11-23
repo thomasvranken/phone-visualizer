@@ -20,7 +20,8 @@
             "wifi": {
                 "hours": 11,
                 "minutes": 34
-            }
+            },
+            "specs": {}
         },
         "camera": {
             "dxo": {
@@ -30,6 +31,9 @@
                 "approximate": false
             },
             "specs": {}
+        },
+        "display": {
+            "contrastSun": 4.498
         },
         "symbolId": 0,
         "image": "samsung-galaxy-s10p.png"
@@ -56,6 +60,10 @@
             "wifi": {
                 "hours": 8,
                 "minutes": 53
+            },
+            "specs": {
+                "type": "Li-Po 3300 mAh, non-removable",
+                "charging": "Fast charging 27W\r\nQuick Charge 4+\r\nFast wireless charging 20W"
             }
         },
         "camera": {
@@ -66,10 +74,17 @@
                 "approximate": false
             },
             "specs": {
-                "features": "Dual-LED flash, HDR, panorama",
-                "aantalAchteraan": 3,
-                "aantalVooraan": 1
+                "aantalCameras": "3 achteraan, 1 vooraan",
+                "achteraan": "48 MP, f\/1.8, 27mm (wide), 1\/2.0\", 0.8\u00B5m, PDAF, Laser AF\r\n12 MP, f\/2.2, 54mm (telephoto), 1\/3.6\", 1.0\u00B5m, PDAF, 2x optical zoom\r\n16 MP, f\/2.2, 13mm (ultrawide), 1\/3.0\", 1.0\u00B5m, PDAF",
+                "featuresAchteraan": "Dual-LED flash, HDR, panorama",
+                "videoAchteraan": "4K@30/60fps, 1080p@30/120/240fps, 1080p@960fps",
+                "vooraan": "20 MP, f\/2.0, (wide), 1\/3\", 0.9\u00B5m",
+                "featuresVooraan": "HDR",
+                "videoVooraan": "1080p@30fps"
             }
+        },
+        "display": {
+            "contrastSun": 3.921
         },
         "symbolId": 1,
         "image": "xiaomi-mi-9.jpg"
@@ -96,7 +111,8 @@
             "wifi": {
                 "hours": 13,
                 "minutes": 8
-            }
+            },
+            "specs": {}
         },
         "camera": {
             "dxo": {
@@ -106,6 +122,9 @@
                 "approximate": false
             },
             "specs": {}
+        },
+        "display": {
+            "contrastNom": 1505
         },
         "symbolId": 2
     },
@@ -131,7 +150,8 @@
             "wifi": {
                 "hours": 13,
                 "minutes": 57
-            }
+            },
+            "specs": {}
         },
         "camera": {
             "dxo": {
@@ -141,6 +161,9 @@
                 "approximate": false
             },
             "specs": {}
+        },
+        "display": {
+            "contrastSun": 5.119
         },
         "symbolId": 3
     },
@@ -166,7 +189,8 @@
             "wifi": {
                 "hours": 12,
                 "minutes": 17
-            }
+            },
+            "specs": {}
         },
         "camera": {
             "dxo": {
@@ -176,6 +200,9 @@
                 "approximate": false
             },
             "specs": {}
+        },
+        "display": {
+            
         },
         "symbolId": 4
     }
