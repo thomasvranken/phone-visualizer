@@ -19,6 +19,7 @@ function GraphContainer(props: {
       let graphWidth = rect.width;
       let graphHeight = rect.height;
       // console.log(graphWidth, graphHeight);
+      console.log("drawing graph")
       props.graph.draw(
         props.phoneRepo,
         props.trackedPhones,

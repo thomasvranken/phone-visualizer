@@ -12,9 +12,18 @@ import {
   FeaturesCategory,
   MainCategory,
 } from "./category";
-import { Phone, OverviewProps } from "./types";
+import { Phone, OverviewProps, TrackedPhone } from "./types";
 import * as d3 from "d3";
 import moment from "moment";
+
+/**
+ * A list containing (semi-)recent android versions since 2016 (from 7 to 10).
+ */
+export const androidVersions = ["7", "7.1", "8", "8.1", "9", "10"];
+/**
+ * A list containing (semi-)recent iOS versions since 2016 (from 10 to 14).
+ */
+export const iOSVersions = ["10", "11", "12", "13", "14"];
 
 export class PhoneRepository {
   tuio: Tuio;
@@ -37,39 +46,71 @@ export class PhoneRepository {
       camera: d3.min(this.database.map((p) => p.camera.dxo.general)) || 0,
       battery: d3.min(this.database.map((p) => p.battery.wifi.asHours())) || 0,
       cpu: d3.min(this.database.map((p) => p.cpu.benchmark)) || 0,
-      ram: d3.min(this.database.map((p) => p.ram)) || 0,
-      storage: d3.min(this.database.map((p) => p.storage)) || 0,
+      ram: d3.min(this.database.map((p) => p.memory.ram)) || 0,
+      storage: d3.min(this.database.map((p) => p.memory.storage)) || 0,
     };
     this.maxProps = {
       camera: d3.max(this.database.map((p) => p.camera.dxo.general)) || 0,
       battery: d3.max(this.database.map((p) => p.battery.wifi.asHours())) || 0,
       cpu: d3.max(this.database.map((p) => p.cpu.benchmark)) || 0,
-      ram: d3.max(this.database.map((p) => p.ram)) || 0,
-      storage: d3.max(this.database.map((p) => p.storage)) || 0,
+      ram: d3.max(this.database.map((p) => p.memory.ram)) || 0,
+      storage: d3.max(this.database.map((p) => p.memory.storage)) || 0,
     };
     tuio.setRepository(this);
   }
 
+  /**
+   * Parses the JSON data into an array of Phone objects.
+   * @param data 
+   */
   parseData(data: any): Phone[] {
-    let result = JSON.parse(JSON.stringify(data))
-    console.log("data before modifying:", result)
+    let result = JSON.parse(JSON.stringify(data));
+    console.log("data before modifying:", result);
     result.forEach((d: any) => {
       d.battery.wifi = moment.duration(
         `${d.battery.wifi.hours}:${d.battery.wifi.minutes}`
       );
+      d.os.version = d.os.version.toString()
       d.camera.specs = new Map(Object.entries(d.camera.specs));
       d.battery.specs = new Map(Object.entries(d.battery.specs));
+      if (d.memory.hasOwnProperty("specs")) {
+        d.memory.specs = new Map(Object.entries(d.memory.specs));
+      }
+      if (d.cpu.hasOwnProperty("specs")) {
+        d.cpu.specs = new Map(Object.entries(d.cpu.specs));
+      }
+      if (d.display.hasOwnProperty("specs")) {
+        d.display.specs = new Map(Object.entries(d.display.specs));
+      }
+      if (d.connectivity.hasOwnProperty("specs")) {
+        d.connectivity.specs = new Map(Object.entries(d.connectivity.specs));
+      }
+      if (d.features.hasOwnProperty("specs")) {
+        d.features.specs = new Map(Object.entries(d.features.specs));
+      }
     });
-    console.log("data for rest of program:", result)
-    return result
+    console.log("data for rest of program:", result);
+    return result;
   }
 
   setCurrentIds(ids: number[]) {
     this.currentIds = ids;
   }
 
+  /**
+   * Returns a list of phones which have a filename referencing an image.
+   */
   getPhonesWithImage() {
     return this.database.filter((p) => p.image !== undefined);
+  }
+
+  /**
+   * Returns the phone associated with the given tracked phone entity.
+   * @param trackedPhone 
+   * 
+   */
+  findPhone(trackedPhone: TrackedPhone) {
+    return this.database.find(p => p.symbolId === trackedPhone.id)
   }
 }
 

@@ -1,6 +1,8 @@
 import React from "react";
 import Draggable from "react-draggable";
+import { DEFAULT_PHONE_HEIGHT, DEFAULT_PHONE_WIDTH, DEFAULT_PHONE_IMG_PIXEL_HEIGHT, DEFAULT_PHONE_IMG_PIXEL_WIDTH, calcImgHeight, calcImgWidth } from "../../ts/phoneImage";
 import { Phone } from "../../ts/types";
+
 
 function PhoneList(props: {
   phones: Phone[];
@@ -30,6 +32,7 @@ function DraggablePhone(props: {
   onDrag: (phone: Phone, rect: any) => void;
 }) {
   const file = "/images/phones/" + props.imageSrc;
+
   function onStart() {
     console.log("started drag");
   }
@@ -53,13 +56,13 @@ function DraggablePhone(props: {
           display: "flex",
           zIndex: 20,
           justifyContent: "center", //TODO why won't this work?
-          top: 40+props.index * 110,
+          top: 40+props.index * (100),
         }}
       >
         <img
           src={file}
-          height="80"
-          width="40"
+          height={calcImgHeight(props.phone)}
+          width={calcImgWidth(props.phone)}
           alt=""
           style={{ pointerEvents: "none" }}
         ></img>

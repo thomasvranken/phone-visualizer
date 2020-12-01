@@ -63,26 +63,6 @@ function MiddleContainer(props: {
       </Box>
     );
   }
-
-  // return (
-  //   <Box height={1} display="flex" flexDirection="column">
-  //     <Box style={{ height: "8%" }}>
-  //       <ButtonGroup color="primary">
-  //         {props.active.graphs.map((graph) => drawButton(graph))}
-  //       </ButtonGroup>
-  //     </Box>
-  //     <Box flexGrow={1} display="flex">
-  //       <GraphContainer
-  //         phoneRepo={props.phoneRepo}
-  //         graph={props.active.currentGraph}
-  //         trackedPhones={props.trackedPhones}
-  //       />
-  //     </Box>
-  //     <Box style={{ height: "20%" }}>
-  //       <PhoneStrip></PhoneStrip>
-  //     </Box>
-  //   </Box>
-  // );
 }
 
 export default MiddleContainer;

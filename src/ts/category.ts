@@ -1,7 +1,7 @@
 import { PhotoChart, Graph, BatteryWifiChart, VideoChart, CameraGeneralChart, BasePriceChart, WorkingMemoryChart, CPUPowerChart, StorageChart, DisplayContrastSunChart } from "./draw";
 import * as d3 from "d3";
 import { MainGraph } from "./drawMain";
-import { BatterySpecs, CameraSpecs } from "./drawSpecs";
+import { BatterySpecs, CameraSpecs, ConnectivitySpecs, CPUSpecs, DisplaySpecs, ExtraFeaturesSpecs, MemorySpecs } from "./drawSpecs";
 
 /**
  * A generic class representing a category of properties for smartphone.
@@ -67,30 +67,30 @@ export class PriceCategory extends Category {
 
 export class MemoryCategory extends Category {
   constructor() {
-    super("geheugen en opslag",[new WorkingMemoryChart(), new StorageChart()], categoryColors.memory);
+    super("geheugen en opslag",[new WorkingMemoryChart(), new StorageChart(), new MemorySpecs()], categoryColors.memory);
   }
 }
 
 export class OSCategory extends Category {
   constructor() {
-    super("OS en processor",[new CPUPowerChart()], categoryColors.cpu);
+    super("Systeem en processor",[new CPUPowerChart(), new CPUSpecs()], categoryColors.cpu);
   }
 }
 
 export class ScreenCategory extends Category {
   constructor() {
-    super("Scherm en weergave",[new DisplayContrastSunChart()], categoryColors.screen);
+    super("Scherm en weergave",[new DisplayContrastSunChart(), new DisplaySpecs()], categoryColors.screen);
   }
 }
 
 export class ConnectivityCategory extends Category {
   constructor() {
-    super("Connectiviteit",[], categoryColors.connectivity);
+    super("Connectiviteit",[new ConnectivitySpecs()], categoryColors.connectivity);
   }
 }
 
 export class FeaturesCategory extends Category {
   constructor() {
-    super("Poorten en features",[], categoryColors.features);
+    super("Poorten en features",[new ExtraFeaturesSpecs()], categoryColors.features);
   }
 }

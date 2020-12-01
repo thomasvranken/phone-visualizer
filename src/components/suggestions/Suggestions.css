@@ -1,0 +1,12 @@
+.suggestion {
+    border-width: 1px;
+    border-color: grey;
+    border-style: groove;
+    padding: 5px;
+    margin: 10px 0px;
+
+}
+
+p {
+    margin: 1px
+}

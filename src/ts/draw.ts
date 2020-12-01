@@ -38,7 +38,7 @@ type BarChartData = {
   id: number;
   value: number;
 };
-class BarChart extends Graph {
+export class BarChart extends Graph {
   draw(
     phoneRepo: PhoneRepository,
     trackedPhones: Array<TrackedPhone>,
@@ -51,9 +51,11 @@ class BarChart extends Graph {
     let titlePercent = 0.1;
     let leftPercent = 0.08;
     const ids = trackedPhones.map((tp) => tp.id);
-    let data: BarChartData[] = phones.map((p) => {
-      return { value: this.getChartValue(p), id: p.symbolId };
-    }).filter(p => p.value !== undefined) as BarChartData[];
+    let data: BarChartData[] = phones
+      .map((p) => {
+        return { value: this.getChartValue(p), id: p.symbolId };
+      })
+      .filter((p) => p.value !== undefined) as BarChartData[];
     // console.log("bars for drawing:", data.length)
     data.sort((a, b) => b.value - a.value);
     let marginHorizontal = 5,
@@ -146,7 +148,6 @@ class BarChart extends Graph {
       .attr("y", (leftPercent - 0.04) * width)
       .attr("x", -titlePercent * height)
       .attr("font-size", "18");
-    // .text(this.yAxisTitle)
 
     // Change all text to black (axis and title)
     svg.selectAll("text").style("fill", "black");
@@ -173,10 +174,10 @@ class BarChart extends Graph {
   /**
    * Returns a textual representation of the given value,
    * which is easier to understand for humans.
-   * Default implementation is to return the value unchanged.
+   * Default implementation is to return the value as a string.
    * @param {*} value
    */
-  convertToText(value: any) {
+  convertToText(value: any): string {
     return value;
   }
 }
@@ -217,7 +218,7 @@ export class BatteryWifiChart extends BarChart {
   }
 
   getChartValue(phone: Phone) {
-    return phone.battery.wifi.asHours()
+    return phone.battery.wifi.asHours();
   }
 
   convertToText(value: number) {
@@ -246,7 +247,7 @@ export class WorkingMemoryChart extends BarChart {
     super("Werkgeheugen", "Werkgeheugen (in Gigabyte)");
   }
   getChartValue(phone: Phone) {
-    return phone.ram
+    return phone.memory.ram;
   }
 }
 
@@ -255,7 +256,7 @@ export class StorageChart extends BarChart {
     super("Opslag", "Opslagruimte (in Gigabyte)");
   }
   getChartValue(phone: Phone) {
-    return phone.storage
+    return phone.memory.storage;
   }
 }
 
@@ -264,7 +265,7 @@ export class CPUPowerChart extends BarChart {
     super("Rekenkracht", "Rekenkracht");
   }
   getChartValue(phone: Phone) {
-    return phone.cpu.benchmark
+    return phone.cpu.benchmark;
   }
 }
 
@@ -274,7 +275,8 @@ export class DisplayContrastSunChart extends BarChart {
   }
   getChartValue(phone: Phone) {
     if (phone.display.contrastSun) {
-      return phone.display.contrastSun as number
-    } return undefined
+      return phone.display.contrastSun as number;
+    }
+    return undefined;
   }
 }

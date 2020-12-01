@@ -14,8 +14,10 @@
         "cpu": {
             "benchmark": 123675
         },
-        "ram": 6,
-        "storage": 128,
+        "memory": {
+            "ram": 6,
+            "storage": 128
+        },
         "battery": {
             "wifi": {
                 "hours": 11,
@@ -34,6 +36,16 @@
         },
         "display": {
             "contrastSun": 4.498
+        },
+        "connectivity":{
+            
+        },
+        "features":{
+
+        },
+        "physical":{
+            "width": 74.1,
+            "height": 157.6
         },
         "symbolId": 0,
         "image": "samsung-galaxy-s10p.png"
@@ -54,8 +66,10 @@
         "cpu": {
             "benchmark": 137326
         },
-        "ram": 6,
-        "storage": 128,
+        "memory": {
+            "ram": 6,
+            "storage": 128
+        },
         "battery": {
             "wifi": {
                 "hours": 8,
@@ -86,6 +100,16 @@
         "display": {
             "contrastSun": 3.921
         },
+        "connectivity":{
+            
+        },
+        "features":{
+
+        },
+        "physical":{
+            "width": 74.4,
+            "height": 157.5
+        },
         "symbolId": 1,
         "image": "xiaomi-mi-9.jpg"
     },
@@ -105,8 +129,10 @@
         "cpu": {
             "benchmark": 419453
         },
-        "ram": 4,
-        "storage": 128,
+        "memory": {
+            "ram": 4,
+            "storage": 128
+        },
         "battery": {
             "wifi": {
                 "hours": 13,
@@ -126,6 +152,13 @@
         "display": {
             "contrastNom": 1505
         },
+        "connectivity":{
+            
+        },
+        "features":{
+
+        },
+        "physical":{},
         "symbolId": 2
     },
     {
@@ -144,8 +177,10 @@
         "cpu": {
             "benchmark": 316156
         },
-        "ram": 8,
-        "storage": 128,
+        "memory": {
+            "ram": 8,
+            "storage": 128
+        },
         "battery": {
             "wifi": {
                 "hours": 13,
@@ -165,6 +200,13 @@
         "display": {
             "contrastSun": 5.119
         },
+        "connectivity":{
+            
+        },
+        "features":{
+
+        },
+        "physical":{},
         "symbolId": 3
     },
     {
@@ -183,8 +225,10 @@
         "cpu": {
             "benchmark": 342208
         },
-        "ram": 12,
-        "storage": 256,
+        "memory": {
+            "ram": 12,
+            "storage": 256
+        },
         "battery": {
             "wifi": {
                 "hours": 12,
@@ -204,6 +248,65 @@
         "display": {
             
         },
+        "connectivity":{
+            
+        },
+        "features":{
+
+        },
+        "physical":{},
         "symbolId": 4
+    },
+    {
+        "brand": "Fake",
+        "name": "Fakephone X",
+        "price": {
+            "base": {
+                "eur": 99,
+                "cent": 0
+            }
+        },
+        "os": {
+            "type": "Android",
+            "version": 7.1
+        },
+        "cpu": {
+            "benchmark": 99000
+        },
+        "memory": {
+            "ram": 2,
+            "storage": 32
+        },
+        "battery": {
+            "wifi": {
+                "hours": 4,
+                "minutes": 30
+            },
+            "specs":{}
+        },
+        "camera": {
+            "dxo": {
+                "general": 60,
+                "photo": 62,
+                "video": 52,
+                "approximate": true
+            },
+            "specs":{}
+        },
+        "display": {
+            "contrastSun": 0.6
+        },
+        "connectivity":{
+            
+        },
+        "features":{
+
+        },
+        "physical":{
+            "width": 65,
+            "height": 140
+        },
+        "symbolId": 100,
+        "image": "xiaomi-mi-9.jpg"
     }
 ]

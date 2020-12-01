@@ -14,6 +14,14 @@ import PhoneList from "../phonelist/PhoneList";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 import * as d3 from "d3";
+import Suggestions from "../suggestions/Suggestions";
+import { TechnicalSpecs } from "../../ts/drawSpecs";
+import {
+  calcImgHeight,
+  calcImgWidth,
+  DEFAULT_PHONE_IMG_PIXEL_HEIGHT,
+  DEFAULT_PHONE_IMG_PIXEL_WIDTH,
+} from "../../ts/phoneImage";
 
 export function App(props: {}) {
   const [tuio] = useState(new Tuio());
@@ -56,6 +64,7 @@ function PhoneSpecs(props: {
   const [activeCategory, setActiveCategory] = useState<Category>(
     props.categories.main
   );
+  const [showCategories, setShowCategories] = useState<boolean>(false);
   const [trackedPhones, setTrackedPhones] = useState<TrackedPhone[]>([]);
   const phoneColRef = useRef<HTMLDivElement>();
   const trackedColors = d3.schemeSet2;
@@ -67,7 +76,6 @@ function PhoneSpecs(props: {
 
   function handleGraphChange(newGraph: Graph) {
     console.log("new graph is", newGraph);
-
     setActiveCategory({ ...activeCategory, currentGraph: newGraph });
   }
 
@@ -83,7 +91,7 @@ function PhoneSpecs(props: {
     if (node) {
       const phoneListRect = node.getBoundingClientRect();
       // only track phones in active part of screen
-      const newList = trackedPhones.filter((tp) => tp.id !== phone.symbolId);
+      let newList = trackedPhones.filter((tp) => tp.id !== phone.symbolId);
       if (x < phoneListRect.x) {
         let tpIndex = trackedPhones.findIndex((tp) => tp.id === phone.symbolId);
         if (tpIndex > -1) {
@@ -93,7 +101,7 @@ function PhoneSpecs(props: {
             rect: rect,
             color: trackedPhones[tpIndex].color,
           };
-          newList.push(tracked);
+          newList.splice(tpIndex, 0, tracked);
           setTrackedPhones(newList);
         } else {
           // new tracked phone needs a free color
@@ -117,6 +125,8 @@ function PhoneSpecs(props: {
             }
           }
         }
+        // finally: show categories if this isn't the case yet
+        setShowCategories(true);
       } else {
         setTrackedPhones(newList);
       }
@@ -125,12 +135,36 @@ function PhoneSpecs(props: {
   }
   const classes = useStyles();
   let suggestions;
-  if (activeCategory instanceof MainCategory) {
+  if (
+    activeCategory instanceof MainCategory ||
+    activeCategory.currentGraph instanceof TechnicalSpecs
+  ) {
     suggestions = null;
   } else {
     suggestions = (
       <Grid item xs={2}>
-        <Card className={classes.paper}>Suggesties</Card>
+        <Card className={classes.paper}>
+          <Suggestions
+            phoneRepo={props.repository}
+            active={activeCategory}
+            trackedPhones={trackedPhones}
+          ></Suggestions>
+        </Card>
+      </Grid>
+    );
+  }
+
+  let leftSide = <Grid item xs={2}></Grid>;
+  if (showCategories) {
+    leftSide = (
+      <Grid item xs={2}>
+        <Card className={classes.paper}>
+          <LeftContainer
+            categories={props.categories}
+            active={activeCategory}
+            onClick={(category) => handleCategoryChange(category)}
+          />
+        </Card>
       </Grid>
     );
   }
@@ -150,15 +184,7 @@ function PhoneSpecs(props: {
               justify="center"
               alignItems="center"
             >
-              <Grid item xs={2}>
-                <Card className={classes.paper}>
-                  <LeftContainer
-                    categories={props.categories}
-                    active={activeCategory}
-                    onClick={(category) => handleCategoryChange(category)}
-                  />
-                </Card>
-              </Grid>
+              {leftSide}
               <Grid item xs>
                 <Card className={classes.paper}>
                   <MiddleContainer
@@ -184,6 +210,13 @@ function PhoneSpecs(props: {
       </DndProvider>
       {trackedPhones.map((tp) => {
         if (!(activeCategory instanceof MainCategory)) {
+          let width = DEFAULT_PHONE_IMG_PIXEL_WIDTH;
+          let height = DEFAULT_PHONE_IMG_PIXEL_HEIGHT;
+          let phone = props.repository.findPhone(tp);
+          if (phone) {
+            width = calcImgWidth(phone);
+            height = calcImgHeight(phone);
+          }
           return (
             <div
               key={tp.id}
@@ -192,8 +225,8 @@ function PhoneSpecs(props: {
                 left: tp.rect.x - 10,
                 top: tp.rect.y - 10,
                 zIndex: 10,
-                width: 60,
-                height: 100,
+                width: width + 20,
+                height: height + 20,
                 backgroundColor: tp.color,
               }}
             ></div>

@@ -2,7 +2,8 @@ import React from "react";
 import { CategoryRepository } from "../../ts/repository";
 import { Category } from "../../ts/category";
 import { Button, Box, withStyles, Theme } from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
+import "./LeftContainer.css";
+import * as d3 from "d3";
 
 //TODO fix any type and highlight logic
 function LeftContainer(props: {
@@ -74,22 +75,35 @@ export function CatButton(props: {
   highlight: boolean;
   onClick: () => void;
 }) {
-  const color = props.highlight ? props.category.color : "#D3D3D3";
-  const ColorButton = withStyles((theme: Theme) => ({
-    root: {
-      color: theme.palette.getContrastText(color),
-      backgroundColor: color,
-      // "&:hover": {
-      //   backgroundColor: green[400],
-      // },
-    },
-  }))(Button);
+  // const color = props.highlight ? props.category.color : "#D3D3D3";
+  // NOTE: for some reason, this implementation slows down rendering by A LOT
+  // const ColorButton = withStyles((theme: Theme) => ({
+  //   root: {
+  //     color: theme.palette.getContrastText(color),
+  //     backgroundColor: color,
+  //   },
+  // }))(Button);
+  // return (
+  // <ColorButton
+  //   variant="contained"
+  //   className="btn-category"
+  //   onClick={() => props.onClick()}
+  // >
+  //   {props.category.name}
+  // </ColorButton>
+  // );
+  // More efficient implementation with similar result
+  let color = props.highlight ? props.category.color : "#D3D3D3";
   return (
-    // <Button variant="contained" color="primary" onClick={() => props.onClick()}>
-    //   {props.category.name}
-    // </Button>
-    <ColorButton variant="contained" onClick={() => props.onClick()}>{props.category.name}
-    </ColorButton>
+    <Button
+      style={{
+        backgroundColor: color,
+      }}
+      className="btn-category"
+      onClick={() => props.onClick()}
+    >
+      {props.category.name}
+    </Button>
   );
 }
 

@@ -30,15 +30,34 @@ export type Phone = {
     };
     specs: Map<string, string>;
   };
-  ram: number;
-  storage: number;
+  memory: {
+    ram: number;
+    storage: number;
+    specs: Map<string, string>;
+  };
   cpu: {
     benchmark: number;
+    specs: Map<string, string>;
+  };
+  os: {
+    type: string;
+    version: string;
   };
   display: {
     contrastSun: number | undefined;
     contrastNom: number | undefined;
-  }
+    specs: Map<string, string>;
+  };
+  connectivity: {
+    specs: Map<string, string>;
+  };
+  features: {
+    specs: Map<string, string>;
+  };
+  physical: {
+    width: number | undefined; // in mm
+    height: number | undefined; // in mm
+  };
   symbolId: number;
   image?: string;
 };

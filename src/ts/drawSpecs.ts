@@ -14,7 +14,7 @@ class TableEntry {
  * A class for drawing tabular visualisations
  * of technical phone specifications.
  */
-class TechnicalSpecs extends Graph {
+ export class TechnicalSpecs extends Graph {
   /**
    * Constructs an object for drawing tables for a given set of specs.
    * @param table A list of TableEntry, each entry has a field name
@@ -111,6 +111,66 @@ export class BatterySpecs extends TechnicalSpecs {
         new TableEntry("charging", "Laden"),
       ],
       ["battery", "specs"]
+    );
+  }
+}
+
+export class MemorySpecs extends TechnicalSpecs {
+  constructor() {
+    super(
+      [
+        // new TableEntry("type", "Type"),
+        // new TableEntry("charging", "Laden"),
+      ],
+      ["memory", "specs"]
+    );
+  }
+}
+
+export class CPUSpecs extends TechnicalSpecs {
+  constructor() {
+    super(
+      [
+        // new TableEntry("type", "Type"),
+        // new TableEntry("charging", "Laden"),
+      ],
+      ["cpu", "specs"]
+    );
+  }
+}
+
+export class DisplaySpecs extends TechnicalSpecs {
+  constructor() {
+    super(
+      [
+        // new TableEntry("type", "Type"),
+        // new TableEntry("charging", "Laden"),
+      ],
+      ["display", "specs"]
+    );
+  }
+}
+
+export class ConnectivitySpecs extends TechnicalSpecs {
+  constructor() {
+    super(
+      [
+        // new TableEntry("type", "Type"),
+        // new TableEntry("charging", "Laden"),
+      ],
+      ["connectivity", "specs"]
+    );
+  }
+}
+
+export class ExtraFeaturesSpecs extends TechnicalSpecs {
+  constructor() {
+    super(
+      [
+        // new TableEntry("type", "Type"),
+        // new TableEntry("charging", "Laden"),
+      ],
+      ["features", "specs"]
     );
   }
 }

@@ -1,14 +1,16 @@
 import * as d3 from "d3";
+// import {scaleRadial} from "../js/scale-radial.js"
 import $ from "jquery";
 import { Graph, svgId } from "./draw";
-import { PhoneRepository } from "./repository";
-import { TrackedPhone, Phone, OverviewProps } from "./types";
+import { androidVersions, iOSVersions, PhoneRepository } from "./repository";
+import { TrackedPhone, Phone } from "./types";
 import smartphoneIcon from "../images/icons/smartphone-icon.png";
 import cameraIcon from "../images/icons/camera.png";
 import batteryIcon from "../images/icons/battery.png";
 import cpuIcon from "../images/icons/cpu.png";
 import ramIcon from "../images/icons/ram.png";
 import storageIcon from "../images/icons/storage.png";
+import osIcon from "../images/icons/os.png";
 import { categoryColors } from "./category";
 
 /**
@@ -53,7 +55,6 @@ export class MainGraph extends Graph {
     phoneRepo: PhoneRepository
   ) {
     const svg = d3.select("#" + svgId);
-
     const innerRadius = 50;
     const outerRadius = 200;
     let phoneAbsX = rect.x + rect.width / 2;
@@ -82,15 +83,23 @@ export class MainGraph extends Graph {
       0,
       phoneRepo.maxProps.cpu
     );
-    let ramSlice = new RAMSlice(smartphone.ram, 0, phoneRepo.maxProps.ram);
+    let ramSlice = new RAMSlice(smartphone.memory.ram, 0, phoneRepo.maxProps.ram);
 
     let storageSlice = new StorageSlice(
-      smartphone.storage,
+      smartphone.memory.storage,
       0,
       phoneRepo.maxProps.storage
     );
+    let osSlice = new OSSlice(smartphone.os.version, smartphone.os.type);
 
-    let slices = [cameraSlice, batterySlice, ramSlice, cpuSlice, storageSlice];
+    let slices = [
+      cameraSlice,
+      batterySlice,
+      ramSlice,
+      cpuSlice,
+      storageSlice,
+      osSlice,
+    ];
     let priceVal =
       smartphone.price.base.eur + smartphone.price.base.cent * 0.01;
     let generalInfo = {
@@ -107,12 +116,14 @@ export class MainGraph extends Graph {
       .range([start, end])
       .domain(slices.map((s) => s.imageName));
 
+    console.log("group:",svgGroup)
     // Draw outer ring
     svgGroup
       .append("circle")
       .attr("r", outerRadius)
-      .attr("stroke", "lightgrey")
-      .attr("fill", "none");
+      .attr("stroke", "black")
+      .attr("fill", "none")
+      .style("opacity", 0.3)
 
     // Draw brand and name
     let textRadius = outerRadius - 20;
@@ -130,7 +141,8 @@ export class MainGraph extends Graph {
         return res;
       })
       .style("text-anchor", "middle")
-      .style("text-shadow", "1px 1px 2px black")
+      .style("font-weight", "bold")
+      // .style("text-shadow", "1px 1px 2px black")
       .style("fill", "black");
 
     // Arc generator used for the different slices
@@ -138,11 +150,20 @@ export class MainGraph extends Graph {
       .arc()
       .innerRadius(innerRadius)
       .outerRadius((slice: any) => {
-        let y = d3
-          .scaleSqrt()
+        let y = scaleRadial()
           .range([innerRadius, outerRadius])
+          /*NOTE: It seems to be impossible to import scaleRadial from d3.
+          It probably has something to do with typescript.
+          The function is copied at the bottom of this file.*/
+          //@ts-ignore: scaleRadial() local is correct.
           .domain([slice.min, slice.max]);
-        return y(slice.value);
+        return y(slice.getValue());
+        // let y = d3
+        //   .scaleSqrt()
+        //   // .scaleLinear()
+        //   .range([innerRadius, outerRadius])
+        //   .domain([slice.min, slice.max]);
+        // return y(slice.getValue());
       })
       .startAngle((slice: any) => {
         return x(slice.imageName) || 0;
@@ -174,10 +195,10 @@ export class MainGraph extends Graph {
       .enter()
       .append("image")
       .each(function (s, i) {
-        let iconLength = 20;
+        let iconSize = 20;
         let iconRadius = 65;
-        let arcLength = Math.PI * 2 / (slices.length+1)
-        let angle = arcLength * (i-0.5)
+        let arcLength = (Math.PI * 2) / (slices.length + 1);
+        let angle = arcLength * (i - 0.75);
         let x = Math.cos(angle) * iconRadius;
         let y = Math.sin(angle) * iconRadius;
         d3.select(this)
@@ -186,11 +207,10 @@ export class MainGraph extends Graph {
           .attr("y", y)
           // .classed("outline-image", true)
           .style("fill", "black")
-          .attr("width", iconLength)
-          .attr("height", iconLength)
+          .attr("width", iconSize)
+          .attr("height", iconSize)
           .attr("transform", (d) => {
-            let res =
-              "translate(" + -iconLength / 2 + "," + -iconLength / 2 + ")";
+            let res = "translate(" + -iconSize / 2 + "," + -iconSize / 2 + ")";
             return res;
           });
       });
@@ -200,22 +220,25 @@ export class MainGraph extends Graph {
       .selectAll(".descr")
       .data(slices)
       .enter()
-      .each(function (s,i) {
-        let textRadius = 95;
-        let arcLength = Math.PI * 2 / (slices.length+1)
-        let angle = arcLength * (i-0.5)
+      .each(function (s, i) {
+        let textRadius = 100;
+        let arcLength = (Math.PI * 2) / (slices.length + 1);
+        let angle = arcLength * (i - 0.75);
+        // console.log(angle);
         let x = Math.cos(angle) * textRadius;
         let y = Math.sin(angle) * textRadius;
+        // let rotate = (angle < Math.PI / 2 ) ? -20 : 20
         sliceGroup
           .append("text")
           .classed("descr", true)
           .text(s.getDescription())
           .attr("x", x)
           .attr("y", y)
-          // .attr("transform", `rotate(45, ${x} ${y}) translate`)
           .style("fill", "black")
           .style("text-anchor", "middle")
-          // .style("dominant-baseline", "middle");
+          .style("font-size", "14");
+        // .attr("transform", `rotate(${rotate}, ${x}, ${y})`)
+        // .style("dominant-baseline", "middle");
       });
   }
 
@@ -268,6 +291,10 @@ class PropertySlice {
     public imageName: string
   ) {}
 
+  getValue(): number {
+    return this.value;
+  }
+
   /**
    * Returns the description to be showed in this slice.
    * Default implementation: score on 10
@@ -304,7 +331,7 @@ class RAMSlice extends PropertySlice {
   }
 
   getDescription(): string {
-    return this.value + " GB";
+    return this.getValue() + " GB";
   }
 }
 
@@ -315,6 +342,70 @@ class StorageSlice extends PropertySlice {
   }
 
   getDescription(): string {
-    return this.value + " GB";
+    return this.getValue() + " GB";
   }
+}
+
+class OSSlice extends PropertySlice {
+  osType: string;
+  constructor(versionName: string, osType: string) {
+    let c = d3.color(categoryColors.cpu)?.darker().toString();
+    let min, max, value;
+    if (osType.toLowerCase() === "android") {
+      min = 0;
+      max = androidVersions.length - 1;
+      value = androidVersions.findIndex((v) => versionName === v);
+    } else {
+      min = 0;
+      max = iOSVersions.length - 1;
+      value = iOSVersions.findIndex((v) => versionName === v);
+    }
+    super(c || "orange", value, min, max, osIcon);
+    this.osType = osType;
+  }
+
+  getDescription(): string {
+    let version =
+      this.osType.toLowerCase() === "android"
+        ? androidVersions[this.value]
+        : iOSVersions[this.value];
+    return this.osType + " " + version;
+  }
+}
+
+/**
+ * Copied from https://github.com/d3/d3-scale/issues/90
+ * For some reason the function cannot be imported...
+ */
+function scaleRadial() {
+  var domain = [0, 1],
+    range = [0, 1];
+
+  function scale(x: any) {
+    var r0 = range[0] * range[0],
+      r1 = range[1] * range[1];
+    return Math.sqrt(
+      ((x - domain[0]) / (domain[1] - domain[0])) * (r1 - r0) + r0
+    );
+  }
+
+  scale.domain = function (_: any) {
+    return arguments.length
+      ? ((domain = [+_[0], +_[1]]), scale)
+      : domain.slice();
+  };
+
+  scale.range = function (_: any) {
+    return arguments.length ? ((range = [+_[0], +_[1]]), scale) : range.slice();
+  };
+
+  scale.ticks = function (count: any) {
+    return d3.scaleLinear().domain(domain).ticks(count);
+  };
+
+  scale.tickFormat = function (count: any, specifier: any) {
+    return d3.scaleLinear().domain(domain).tickFormat(count, specifier);
+  };
+
+  return scale;
 }
