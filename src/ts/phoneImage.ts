@@ -1,4 +1,5 @@
 import { Phone } from "./types";
+// NOTE: phone images are not "actively" imported. Because of this, they are placed in the public folder.
 
 /**
  * The default value for phone width (in mm).

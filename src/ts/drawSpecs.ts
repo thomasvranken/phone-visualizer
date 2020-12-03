@@ -14,7 +14,7 @@ class TableEntry {
  * A class for drawing tabular visualisations
  * of technical phone specifications.
  */
- export class TechnicalSpecs extends Graph {
+export class TechnicalSpecs extends Graph {
   /**
    * Constructs an object for drawing tables for a given set of specs.
    * @param table A list of TableEntry, each entry has a field name
@@ -54,6 +54,7 @@ class TableEntry {
       .select("#" + chartId)
       .append("div")
       .classed("specs-div", true);
+    // Phone name
     specsDiv
       .append("h6")
       .text(`${phone.brand} ${phone.name}`)
@@ -63,6 +64,7 @@ class TableEntry {
       .append("table")
       .attr("id", SPECS_TABLE_CLASS)
       .classed(SPECS_TABLE_CLASS, true);
+    // Fill in rows
     let rows = tableElement.selectAll("tr");
     rows
       .data(this.table)
@@ -71,16 +73,32 @@ class TableEntry {
       .each(function (entry) {
         let row = d3.select(this);
         let field = entry.fieldName;
-        if (specs.has(field)) {
-          row.append("td").text(entry.fieldDescription);
+        if (specs && specs.has(field)) {
+          row
+            .append("td")
+            .text(entry.fieldDescription)
+            .style("font-size", "12px")
+            .style("width", "25%")
           let text: any = specs.get(field).toString();
+          let color = "black"
+          if (text === "true") {
+            text = "Ja"
+            color = "green"
+          } else if (text === "false") {
+            text = "Nee"
+            color = "red"
+          }
           console.log(text);
           let parts = text.split("\n");
           let details = row.append("td");
           for (let part of parts) {
-            details.append("p").text(part).classed("specs-p", true);
+            details
+              .append("p")
+              .text(part)
+              .classed("specs-p", true)
+              .style("font-size", "12px")
+              .style("color", color)
           }
-          //   row.append("td").text(text);
         }
       });
   }
@@ -106,10 +124,7 @@ export class CameraSpecs extends TechnicalSpecs {
 export class BatterySpecs extends TechnicalSpecs {
   constructor() {
     super(
-      [
-        new TableEntry("type", "Type"),
-        new TableEntry("charging", "Laden"),
-      ],
+      [new TableEntry("type", "Type"), new TableEntry("charging", "Laden")],
       ["battery", "specs"]
     );
   }
@@ -119,8 +134,7 @@ export class MemorySpecs extends TechnicalSpecs {
   constructor() {
     super(
       [
-        // new TableEntry("type", "Type"),
-        // new TableEntry("charging", "Laden"),
+        new TableEntry("cardslot", "Ruimte voor externe opslag"),
       ],
       ["memory", "specs"]
     );
@@ -131,8 +145,8 @@ export class CPUSpecs extends TechnicalSpecs {
   constructor() {
     super(
       [
-        // new TableEntry("type", "Type"),
-        // new TableEntry("charging", "Laden"),
+        new TableEntry("processor", "Algemene processor"),
+        new TableEntry("gpu", "Grafische processor"),
       ],
       ["cpu", "specs"]
     );
@@ -143,8 +157,10 @@ export class DisplaySpecs extends TechnicalSpecs {
   constructor() {
     super(
       [
-        // new TableEntry("type", "Type"),
-        // new TableEntry("charging", "Laden"),
+        new TableEntry("type", "Type"),
+        new TableEntry("size", "Grootte"),
+        new TableEntry("resolution", "Resolutie"),
+        new TableEntry("protection", "Bescherming"),
       ],
       ["display", "specs"]
     );
@@ -155,8 +171,13 @@ export class ConnectivitySpecs extends TechnicalSpecs {
   constructor() {
     super(
       [
-        // new TableEntry("type", "Type"),
-        // new TableEntry("charging", "Laden"),
+        new TableEntry("technology", "Technologieën"),
+        new TableEntry("wlan", "WLAN"),
+        new TableEntry("bluetooth", "Bluetooth"),
+        new TableEntry("gps", "GPS"),
+        new TableEntry("nfc", "NFC (Near Field Communicaton)"),
+        new TableEntry("radio", "radio"),
+        new TableEntry("usb", "USB-poorten"),
       ],
       ["connectivity", "specs"]
     );
@@ -167,8 +188,13 @@ export class ExtraFeaturesSpecs extends TechnicalSpecs {
   constructor() {
     super(
       [
-        // new TableEntry("type", "Type"),
-        // new TableEntry("charging", "Laden"),
+        new TableEntry("35mm", "3.5mm jack voor audio"),
+        new TableEntry("finger", "Vingerafdrukscanner"),
+        new TableEntry("accelero", "Accelerometer"),
+        new TableEntry("gyro", "Gyroscoop"),
+        new TableEntry("proximity", "Nabijheidssensor"),
+        new TableEntry("compass", "Kompas"),
+        new TableEntry("barometer", "Barometer"),
       ],
       ["features", "specs"]
     );

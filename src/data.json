@@ -258,55 +258,393 @@
         "symbolId": 4
     },
     {
-        "brand": "Fake",
-        "name": "Fakephone X",
+        "brand": "Oneplus",
+        "name": "8 Pro",
         "price": {
             "base": {
-                "eur": 99,
+                "eur": 799,
+                "cent": 0
+            },
+            "specials": {
+                "aanbieding": " € 44,39 per maand en JKP 0%*"
+            }
+        },
+        "os": {
+            "type": "Android",
+            "version": 10
+        },
+        "cpu": {
+            "benchmark": 573276,
+            "specs": {
+                "processor": "Octa Core Qualcomm Snapdragon 865 2.84 GHz",
+                "gpu": "Adreno 650"
+            }
+        },
+        "memory": {
+            "ram": 8,
+            "storage": 128,
+            "specs": {
+                "cardslot": "Geen"
+            }
+        },
+        "battery": {
+            "wifi": {
+                "hours": 11,
+                "minutes": 8
+            },
+            "video": {
+                "hours": 19,
+                "minutes": 53
+            },
+            "specs": {
+                "type": "Li-Po 4510 mAh, non-removable",
+                "charging": "Fast charging 30W, 50% in 23 min (advertised)\r\nFast wireless charging 30W, 50% in 30 min (advertised)\r\nReverse wireless charging 3W"
+            }
+        },
+        "camera": {
+            "dxo": {
+                "general": 118,
+                "photo": 120,
+                "video": 106,
+                "approximate": false
+            },
+            "specs": {
+                "aantalCameras": "4 achteraan, 1 vooraan",
+                "achteraan": "48 MP, f\/1.8, 25mm (wide), 1\/1.43\", 1.12\u00B5m, omnidirectional PDAF, Laser AF, OIS\r\n8 MP, f\/2.4, (telephoto), 1\/1.0\u00B5m, PDAF, OIS, 3x optical zoom\r\n48 MP, f\/2.2, 14mm, 116\u02DA (ultrawide), 1\/2.0\", 0.8\u00B5m, PDAF\r\n5 MP, f\/2.4, (Color filter camera)",
+                "featuresAchteraan": "Dual-LED flash, HDR, panorama",
+                "videoAchteraan": "4K@30/60fps, 1080p@30/60/240fps, Auto HDR, gyro-EIS",
+                "vooraan": "16 MP, f\/2.5, (wide), 1\/3.06\", 1.0\u00B5m",
+                "featuresVooraan": "Auto-HDR",
+                "videoVooraan": "1080p@30fps, gyro-EIS"
+            }
+        },
+        "display": {
+            "minHelder": 2.79,
+            "maxHelder": 1036,
+            "specs": {
+                "type": "Fluid AMOLED, 1B colors, 120Hz, HDR10+",
+                "size": "6.78 inches, 111.7 cm\u00B2 (~90.8% screen-to-body ratio)",
+                "resolution": "1440 x 3168 pixels (~513 ppi density)",
+                "protection": "Corning Gorilla Glass 5"
+
+            }
+        },
+        "connectivity":{
+            "specs": {
+                "technology": "GSM / CDMA / HSPA / LTE / 5G",
+                "wlan": "Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, Wi-Fi Direct, DLNA, hotspot",
+                "bluetooth": "5.1, A2DP, LE, aptX HD",
+                "gps": "Yes, with dual-band A-GPS, GLONASS, BDS, GALILEO, SBAS",
+                "nfc": "Yes",
+                "radio": "No",
+                "usb": "USB Type-C 3.1, USB On-The-Go"
+            }
+        },
+        "features":{
+            "specs": {
+                "35mm": false,
+                "finger": true,
+                "accelero": true,
+                "gyro": true,
+                "proximity": true,
+                "compass": true
+            }
+        },
+        "physical":{
+            "width": 74.4,
+            "height": 165.3
+        },
+        "symbolId": 10,
+        "image": "oneplus-8-pro.png"
+    },
+    {
+        "brand": "Samsung",
+        "name": "Galaxy S20 Ultra",
+        "price": {
+            "base": {
+                "eur": 1179,
                 "cent": 0
             }
         },
         "os": {
             "type": "Android",
-            "version": 7.1
+            "version": 10
         },
         "cpu": {
-            "benchmark": 99000
+            "benchmark": 514485,
+            "specs": {
+                "processor": "Octa-core (2x2.73 GHz Mongoose M5 & 2x2.50 GHz Cortex-A76 & 4x2.0 GHz Cortex-A55) - Global",
+                "gpu": "Mali-G77 MP11"
+            }
         },
         "memory": {
-            "ram": 2,
-            "storage": 32
+            "ram": 12,
+            "storage": 128,
+            "specs": {
+                "cardslot": "microSDXC (uses shared SIM slot)"
+            }
         },
         "battery": {
             "wifi": {
-                "hours": 4,
-                "minutes": 30
+                "hours": 13,
+                "minutes": 12
             },
-            "specs":{}
+            "specs": {
+                "type": "Li-Po 5000 mAh, non-removable",
+                "charging": "Fast charging 45W\r\nUSB Power Delivery 3.0\r\nFast Qi\/PMA wireless charging 15W\r\nReverse wireless charging 4.5W"
+            }
         },
         "camera": {
             "dxo": {
-                "general": 60,
-                "photo": 62,
-                "video": 52,
-                "approximate": true
+                "general": 126,
+                "photo": 128,
+                "video": 106,
+                "approximate": false
             },
-            "specs":{}
+            "specs": {
+                "aantalCameras": "4 achteraan, 1 vooraan, ",
+                "achteraan": "108 MP, f\/1.8, 26mm (wide), 1\/1.33\", 0.8\u00B5m, PDAF, OIS\r\n48 MP, f\/3.5, 103mm (periscope telephoto), 1\/2.0\", 0.8\u00B5m, PDAF, OIS, 4x optical zoom, 10x hybrid zoom\r\n12 MP, f\/2.2, 13mm (ultrawide), 1.4\u00B5m, Super Steady video\r\n0.3 MP, TOF 3D, f\/1.0, (depth)",
+                "featuresAchteraan": "LED flash, auto-HDR, panorama",
+                "videoAchteraan": "8K@24fps, 4K@30/60fps, 1080p@30/60/240fps, 720p@960fps, HDR10+, stereo sound rec., gyro-EIS & OIS",
+                "vooraan": "40 MP, f\/2.2, 26mm (wide), 0.7\u00B5m, PDAF",
+                "featuresVooraan": "Dual video call, Auto-HDR",
+                "videoVooraan": "4K@30/60fps, 1080p@30fps"
+            }
         },
         "display": {
-            "contrastSun": 0.6
+            "contrastSun": 0,
+            "minHelder": 1.77,
+            "maxHelder": 1005,
+            "specs": {
+                "type": "Dynamic AMOLED 2X, 120Hz, HDR10+, 1400 nits (peak)",
+                "size": "6.9 inches, 114.0 cm2 (~89.9% screen-to-body ratio)",
+                "resolution": "1440 x 3200 pixels, 20:9 ratio (~511 ppi density)",
+                "protection": "Corning Gorilla Glass 6\r\n Always-on display\r\n120Hz@FHD\/60Hz@QHD refresh rate"
+            }
         },
         "connectivity":{
-            
+            "specs": {
+                "technology": "GSM / CDMA / HSPA / EVDO / LTE / 5G",
+                "wlan": "Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, Wi-Fi Direct, hotspot",
+                "bluetooth": "5.0, A2DP, LE",
+                "gps": "Yes, with A-GPS, GLONASS, BDS, GALILEO",
+                "nfc": "Yes",
+                "radio": "FM radio (Snapdragon model only; market/operator dependent)",
+                "usb": "USB Type-C 3.2, USB On-The-Go"
+            }
         },
         "features":{
-
+            "specs": {
+                "35mm": false,
+                "finger": true,
+                "accelero": true,
+                "gyro": true,
+                "proximity": true,
+                "compass": true,
+                "barometer": true
+            }
         },
         "physical":{
-            "width": 65,
-            "height": 140
+            "width": 76,
+            "height": 166.9
         },
-        "symbolId": 100,
-        "image": "xiaomi-mi-9.jpg"
+        "symbolId": 11,
+        "image": "samsung-galaxy-s20-ultra.jpg"
+    },
+    {
+        "brand": "Fairphone",
+        "name": "Fairphone 3",
+        "price": {
+            "base": {
+                "eur": 419,
+                "cent": 0
+            }
+        },
+        "os": {
+            "type": "Android",
+            "version": 10
+        },
+        "cpu": {
+            "benchmark": 104862 ,
+            "specs": {
+                "processor": "Qualcomm SDM632 Snapdragon 632 Octa-core 1.8 GHz",
+                "gpu": "Adreno 506"
+            }
+        },
+        "memory": {
+            "ram": 4,
+            "storage": 64,
+            "specs": {
+                "cardslot": "microSD tot 400 GB"
+            }
+        },
+        "battery": {
+            "wifi": {
+                "hours": 10,
+                "minutes": 37
+            },
+            "video": {
+                "hours": 11,
+                "minutes": 9
+            },
+            "specs": {
+                "type": "Li-Ion 3000 mAh, removable",
+                "charging": "3,5 uur laadtijd"
+            }
+        },
+        "camera": {
+            "dxo": {
+                "general": 66,
+                "photo": 67,
+                "video": 63,
+                "approximate": false
+            },
+            "specs": {
+                "aantalCameras": "1 achteraan, 1 vooraan",
+                "achteraan": "12 MP, f\/1.8, (wide), 1\/2.55\", 1.4\u00B5m, dual pixel PDAF",
+                "featuresAchteraan": "Dual-LED dual-tone flash, HDR, panorama",
+                "videoAchteraan": "4K@30fps, 1080p@30fps, gyro-EIS",
+                "vooraan": "8 MP, f\/2.0, (wide), 1\/4.0\"",
+                "featuresVooraan": "\/",
+                "videoVooraan": "1080p@30fps, gyro-EIS"
+            }
+        },
+        "display": {
+            "contrastSun": 0,
+            "minHelder": 19.57,
+            "maxHelder": 470,
+            "specs": {
+                "type": "IPS LCD",
+                "size": "5.65 inches, 82.4 cm2 (~72.6% screen-to-body ratio)",
+                "resolution": "1080 x 2160 pixels, 18:9 ratio (~427 ppi density)",
+                "protection": "Corning Gorilla Glass 5"
+            }
+        },
+        "connectivity":{
+            "specs": {
+                "technology": "GSM / HSPA / LTE",
+                "wlan": "Wi-Fi 802.11 a/b/g/n/ac, dual-band, Wi-Fi Direct, hotspot",
+                "bluetooth": "5.0, A2DP, LE",
+                "gps": "Yes, with A-GPS, GLONASS, GALILEO",
+                "nfc": "Yes",
+                "radio": "No",
+                "usb": "USB Type-C 2.0"
+            }
+        },
+        "features":{
+            "specs": {
+                "35mm": true,
+                "finger": true,
+                "accelero": true,
+                "gyro": true,
+                "proximity": true,
+                "compass": true,
+                "barometer": false
+            }
+        },
+        "physical":{
+            "width": 71.8,
+            "height": 158
+        },
+        "symbolId": 12,
+        "image": "fairphone-3.jpg"
+    },
+    {
+        "brand": "Google",
+        "name": "Pixel 5",
+        "price": {
+            "base": {
+                "eur": 629,
+                "cent": 0
+            }
+        },
+        "os": {
+            "type": "Android",
+            "version": 11
+        },
+        "cpu": {
+            "benchmark": 330500,
+            "specs": {
+                "processor": "Qualcomm Snapdragon 765G Octa-core 2.4GHz",
+                "gpu": "Adreno 620"
+            }
+        },
+        "memory": {
+            "ram": 8,
+            "storage": 128,
+            "specs": {
+                "cardslot": "No"
+            }
+        },
+        "battery": {
+            "wifi": {
+                "hours": 11,
+                "minutes": 7
+            },
+            "video": {
+                "hours": 18,
+                "minutes": 43
+            },
+            "specs": {
+                "type": "Li-Po 4080 mAh, non-removable",
+                "charging": "USB Power Delivery 2.0\r\nFast charging 18W\r\nWireless charging 12W\r\nReverse charging 5W"
+            }
+        },
+        "camera": {
+            "dxo": {
+                "general": 120,
+                "photo": 129,
+                "video": 107,
+                "approximate": false
+            },
+            "specs": {
+                "aantalCameras": "2 achteraan, 1 vooraan",
+                "achteraan": "12.2 MP, f\/1.7, 27mm (wide), 1\/2.55\", 1.4\u00B5m, dual pixel PDAF, OIS\r\n16 MP, f\/2.2, 107\u02DA (ultrawide), 1.0\u00B5m",
+                "featuresAchteraan": "LED flash, Auto-HDR, panorama",
+                "videoAchteraan": "4K@30/60fps, 1080p@30/60/120/240fps; gyro-EIS",
+                "vooraan": "8 MP, f\/2.0, 24mm (wide), 1\/4.0\", 1.12\u00B5m",
+                "featuresVooraan": "Auto-HDR",
+                "videoVooraan": "1080p@30fps"
+            }
+        },
+        "display": {
+            "contrastSun": 0,
+            "minHelder": 1.9,
+            "maxHelder": 855,
+            "specs": {
+                "type": "OLED, 90Hz, HDR10+",
+                "size": "6.0 inches, 87.6 cm2 (~85.9% screen-to-body ratio)",
+                "resolution": "1080 x 2340 pixels, 19.5:9 ratio (~432 ppi density)",
+                "protection": "Corning Gorilla Glass 6"
+            }
+        },
+        "connectivity":{
+            "specs": {
+                "technology": "GSM / CDMA / HSPA / EVDO / LTE / 5G",
+                "wlan": "Wi-Fi 802.11 a/b/g/n/ac, dual-band, Wi-Fi Direct, hotspot",
+                "bluetooth": "5.0, A2DP, LE, aptX HD",
+                "gps": "Yes, with A-GPS, GLONASS, GALILEO, QZSS, BDS",
+                "nfc": "Yes",
+                "radio": "No",
+                "usb": "USB Type-C 3.1"
+            }
+        },
+        "features":{
+            "specs": {
+                "35mm": false,
+                "finger": true,
+                "accelero": true,
+                "gyro": true,
+                "proximity": true,
+                "compass": true,
+                "barometer": true
+            }
+        },
+        "physical":{
+            "width": 70.4,
+            "height": 144.7
+        },
+        "symbolId": 13,
+        "image": "google-pixel-5.png"
     }
 ]

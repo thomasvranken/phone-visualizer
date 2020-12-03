@@ -70,12 +70,10 @@ function PhoneSpecs(props: {
   const trackedColors = d3.schemeSet2;
 
   function handleCategoryChange(category: Category) {
-    console.log("new active is", category);
-    setActiveCategory(category);
+    setActiveCategory(category)
   }
 
   function handleGraphChange(newGraph: Graph) {
-    console.log("new graph is", newGraph);
     setActiveCategory({ ...activeCategory, currentGraph: newGraph });
   }
 
@@ -172,11 +170,11 @@ function PhoneSpecs(props: {
   return (
     <div
       className={classes.root}
-      style={{ height: "100vh", width: "100vw", padding: "1%" }}
+      style={{ width: "100vw", height: "100vh", padding: "1%" }}
     >
       <DndProvider backend={Backend}>
         <Box width="100%">
-          <Container disableGutters={true}>
+          <Container disableGutters={true} maxWidth={false}>
             <Grid
               container
               spacing={2}

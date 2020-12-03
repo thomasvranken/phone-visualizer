@@ -17,13 +17,23 @@ import * as d3 from "d3";
 import moment from "moment";
 
 /**
- * A list containing (semi-)recent android versions since 2016 (from 7 to 10).
+ * A list containing (semi-)recent android versions since 2016 (from 7 to 11).
  */
-export const androidVersions = ["7", "7.1", "8", "8.1", "9", "10"];
+export const androidVersions = ["7", "7.1", "8", "8.1", "9", "10", "11"];
 /**
  * A list containing (semi-)recent iOS versions since 2016 (from 10 to 14).
  */
 export const iOSVersions = ["10", "11", "12", "13", "14"];
+
+/**
+ * A list containing (semi-)recent sizes for RAM.
+ */
+export const RAMSizes = ["1", "2", "3", "4", "6", "8", "10", "12", "16"]
+
+/**
+ * A list containing (semi-)recent sizes for long term storage.
+ */
+export const StorageSizes = ["8", "16", "32", "64", "128", "256", "512"]
 
 export class PhoneRepository {
   tuio: Tuio;

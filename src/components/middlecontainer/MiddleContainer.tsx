@@ -7,6 +7,7 @@ import { Category, MainCategory } from "../../ts/category";
 import PhoneStrip from "../phonestrip/PhoneStrip";
 import { PhoneRepository } from "../../ts/repository";
 import classes from "*.module.css";
+import { getContrast } from "../../js/colors";
 
 function MiddleContainer(props: {
   phoneRepo: PhoneRepository;
@@ -15,18 +16,31 @@ function MiddleContainer(props: {
   onGraphChange: (graph: Graph) => void;
 }) {
   function drawButton(graph: Graph) {
-    const color =
+    const background =
       props.active.currentGraph === graph ? props.active.color : "#D3D3D3";
-    const ColorButton = withStyles((theme: Theme) => ({
-      root: {
-        color: theme.palette.getContrastText(color),
-        backgroundColor: color,
-      },
-    }))(Button);
+    // const ColorButton = withStyles((theme: Theme) => ({
+    //   root: {
+    //     color: theme.palette.getContrastText(color),
+    //     backgroundColor: color,
+    //   },
+    // }))(Button);
+    // return (
+    //   <ColorButton onClick={() => props.onGraphChange(graph)} key={graph.name}>
+    //     {graph.name}
+    //   </ColorButton>
+    // );
+    let color = getContrast(background) as string;
     return (
-      <ColorButton onClick={() => props.onGraphChange(graph)} key={graph.name}>
+      <Button
+        onClick={() => props.onGraphChange(graph)}
+        key={graph.name}
+        style={{
+          color: color,
+          backgroundColor: background,
+        }}
+      >
         {graph.name}
-      </ColorButton>
+      </Button>
     );
   }
 

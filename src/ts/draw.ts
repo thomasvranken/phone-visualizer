@@ -22,6 +22,7 @@ export class Graph {
     containerWidth: number,
     containerHeight: number
   ): void {
+    console.log("draw super");
     d3.select("#" + chartId + " > *").remove();
     d3.select("#" + chartId)
       .selectAll("*")
@@ -31,6 +32,7 @@ export class Graph {
       .attr("width", containerWidth)
       .attr("height", containerHeight)
       .attr("id", svgId);
+    console.log("draw super complete");
   }
 }
 
@@ -46,6 +48,8 @@ export class BarChart extends Graph {
     containerHeight: number
   ) {
     super.draw(phoneRepo, trackedPhones, containerWidth, containerHeight);
+    console.log(trackedPhones.length, containerHeight, containerWidth)
+    console.log("draw bar");
     const phones = phoneRepo.database;
     let svg = d3.select("#" + svgId);
     let titlePercent = 0.1;
@@ -132,7 +136,8 @@ export class BarChart extends Graph {
         })`;
       })
       .style("text-anchor", "middle")
-      .style("text-shadow", "1px 1px 2px black");
+      // .style("text-shadow", "1px 1px 2px black");
+      .style("font-weight", "bold");
     // .style("dominant-baseline", "middle")
 
     // Change y axis line color

@@ -1,0 +1,98 @@
+{
+    "brand": "",
+    "name": "",
+    "price": {
+        "base": {
+            "eur": 0,
+            "cent": 0
+        }
+    },
+    "os": {
+        "type": "",
+        "version": 0
+    },
+    "cpu": {
+        "benchmark": 0,
+        "specs": {
+            "processor": "",
+            "gpu": ""
+        }
+    },
+    "memory": {
+        "ram": 0,
+        "storage": 0,
+        "specs": {
+            "cardslot": ""
+        }
+    },
+    "battery": {
+        "wifi": {
+            "hours": 0,
+            "minutes": 0
+        },
+        "video": {
+            "hours": 0,
+            "minutes": 0
+        },
+        "specs": {
+            "type": "",
+            "charging": "\r\n"
+        }
+    },
+    "camera": {
+        "dxo": {
+            "general": 0,
+            "photo": 0,
+            "video": 0,
+            "approximate": false
+        },
+        "specs": {
+            "aantalCameras": "",
+            "achteraan": "",
+            "featuresAchteraan": "",
+            "videoAchteraan": "",
+            "vooraan": "",
+            "featuresVooraan": "",
+            "videoVooraan": ""
+        }
+    },
+    "display": {
+        "contrastSun": 0,
+        "minHelder": 0,
+        "maxHelder": 0,
+        "specs": {
+            "type": "",
+            "size": "",
+            "resolution": "",
+            "protection": ""
+        }
+    },
+    "connectivity":{
+        "specs": {
+            "technology": "",
+            "wlan": "",
+            "bluetooth": "",
+            "gps": "",
+            "nfc": "",
+            "radio": "",
+            "usb": ""
+        }
+    },
+    "features":{
+        "specs": {
+            "35mm": false,
+            "finger": false,
+            "accelero": false,
+            "gyro": false,
+            "proximity": false,
+            "compass": false,
+            "barometer": false
+        }
+    },
+    "physical":{
+        "width": 0,
+        "height": 0
+    },
+    "symbolId": 0,
+    "image": ""
+}

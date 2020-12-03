@@ -4,8 +4,9 @@ import { Category } from "../../ts/category";
 import { Button, Box, withStyles, Theme } from "@material-ui/core";
 import "./LeftContainer.css";
 import * as d3 from "d3";
+import { getContrast } from "../../js/colors";
 
-//TODO fix any type and highlight logic
+
 function LeftContainer(props: {
   categories: CategoryRepository;
   active: Category;
@@ -93,12 +94,16 @@ export function CatButton(props: {
   // </ColorButton>
   // );
   // More efficient implementation with similar result
-  let color = props.highlight ? props.category.color : "#D3D3D3";
+  let background = props.highlight ? props.category.color : "#D3D3D3";
+  let color = getContrast(background)
   return (
     <Button
       style={{
-        backgroundColor: color,
+        backgroundColor: background,
+        color: color,
       }}
+      variant="contained"
+      disableElevation
       className="btn-category"
       onClick={() => props.onClick()}
     >

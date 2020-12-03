@@ -2,7 +2,13 @@ import * as d3 from "d3";
 // import {scaleRadial} from "../js/scale-radial.js"
 import $ from "jquery";
 import { Graph, svgId } from "./draw";
-import { androidVersions, iOSVersions, PhoneRepository } from "./repository";
+import {
+  androidVersions,
+  iOSVersions,
+  PhoneRepository,
+  RAMSizes,
+  StorageSizes,
+} from "./repository";
 import { TrackedPhone, Phone } from "./types";
 import smartphoneIcon from "../images/icons/smartphone-icon.png";
 import cameraIcon from "../images/icons/camera.png";
@@ -11,7 +17,7 @@ import cpuIcon from "../images/icons/cpu.png";
 import ramIcon from "../images/icons/ram.png";
 import storageIcon from "../images/icons/storage.png";
 import osIcon from "../images/icons/os.png";
-import { categoryColors } from "./category";
+import { categoryColors } from "../js/colors";
 
 /**
  * The main graph, a radial chart displaying the most important properties.
@@ -35,13 +41,20 @@ export class MainGraph extends Graph {
     containerWidth: number,
     containerHeight: number
   ) {
+    // NOTE: containerheight is 0 when changing to main for some reason...
+    // This is fixed when moving a phone
+    if (containerHeight === 0) {
+      containerHeight = 500;
+    }
     super.draw(phoneRepo, trackedPhones, containerWidth, containerHeight);
+    console.log(containerHeight, containerWidth);
     if (trackedPhones.length === 0) {
       this.drawPlaceSmartphone(svgId);
     } else {
       trackedPhones.forEach((tp) => {
         let phone = phoneRepo.database.find((p) => p.symbolId === tp.id);
         if (phone) {
+          console.log(tp.rect.x, tp.rect.y);
           this.drawMainGraph(svgId, phone, tp.rect, phoneRepo);
         }
       });
@@ -68,13 +81,11 @@ export class MainGraph extends Graph {
 
     let cameraSlice = new CameraSlice(
       smartphone.camera.dxo.general,
-      // phoneRepo.minProps.camera,
-      56, //TODO better handle lowest camera quality value?
+      56, // lowest DXO score
       phoneRepo.maxProps.camera
     );
     let batterySlice = new BatterySlice(
       smartphone.battery.wifi.asHours(),
-      // phoneRepo.minProps.battery,
       0,
       phoneRepo.maxProps.battery
     );
@@ -83,13 +94,9 @@ export class MainGraph extends Graph {
       0,
       phoneRepo.maxProps.cpu
     );
-    let ramSlice = new RAMSlice(smartphone.memory.ram, 0, phoneRepo.maxProps.ram);
+    let ramSlice = new RAMSlice(smartphone.memory.ram);
 
-    let storageSlice = new StorageSlice(
-      smartphone.memory.storage,
-      0,
-      phoneRepo.maxProps.storage
-    );
+    let storageSlice = new StorageSlice(smartphone.memory.storage);
     let osSlice = new OSSlice(smartphone.os.version, smartphone.os.type);
 
     let slices = [
@@ -116,34 +123,13 @@ export class MainGraph extends Graph {
       .range([start, end])
       .domain(slices.map((s) => s.imageName));
 
-    console.log("group:",svgGroup)
     // Draw outer ring
     svgGroup
       .append("circle")
       .attr("r", outerRadius)
       .attr("stroke", "black")
       .attr("fill", "none")
-      .style("opacity", 0.3)
-
-    // Draw brand and name
-    let textRadius = outerRadius - 20;
-    svgGroup
-      .append("g")
-      .attr("class", "general")
-      .selectAll("general")
-      .data(Object.values(generalInfo))
-      .enter()
-      .append("text")
-      .text((d) => d)
-      .attr("transform", (d) => {
-        textRadius -= 30;
-        let res = "translate(0," + -textRadius + ")";
-        return res;
-      })
-      .style("text-anchor", "middle")
-      .style("font-weight", "bold")
-      // .style("text-shadow", "1px 1px 2px black")
-      .style("fill", "black");
+      .style("opacity", 0.3);
 
     // Arc generator used for the different slices
     let arcGenerator: any = d3
@@ -187,8 +173,6 @@ export class MainGraph extends Graph {
       .attr("d", arcGenerator as any);
 
     // Draw icons
-    //TODO draw the icons on an imaginary circle around the center
-    // (centroid does not give proper result)
     sliceGroup
       .selectAll("image")
       .data(slices)
@@ -224,7 +208,6 @@ export class MainGraph extends Graph {
         let textRadius = 100;
         let arcLength = (Math.PI * 2) / (slices.length + 1);
         let angle = arcLength * (i - 0.75);
-        // console.log(angle);
         let x = Math.cos(angle) * textRadius;
         let y = Math.sin(angle) * textRadius;
         // let rotate = (angle < Math.PI / 2 ) ? -20 : 20
@@ -240,6 +223,28 @@ export class MainGraph extends Graph {
         // .attr("transform", `rotate(${rotate}, ${x}, ${y})`)
         // .style("dominant-baseline", "middle");
       });
+
+    // Draw brand and name
+    let textRadius = outerRadius - 10;
+    svgGroup
+      .append("g")
+      .attr("class", "general")
+      .selectAll("general")
+      .data(Object.values(generalInfo))
+      .enter()
+      .append("text")
+      .text((d) => d)
+      .attr("transform", (d) => {
+        textRadius -= 30;
+        let res = "translate(0," + -textRadius + ")";
+        return res;
+      })
+      .style("text-anchor", "middle")
+      .style("font-weight", "bold")
+      // .style("text-shadow", "1px 1px 2px black")
+      .style("fill", "black")
+      .style("position", "absolute")
+      .style("z-index", 10);
   }
 
   drawPlaceSmartphone(svgId: string) {
@@ -326,30 +331,36 @@ class CPUSlice extends PropertySlice {
 }
 
 class RAMSlice extends PropertySlice {
-  constructor(value: number, min: number, max: number) {
+  constructor(size: number) {
+    let min = 0;
+    let max = RAMSizes.length - 1;
+    let value = RAMSizes.findIndex((v) => size.toString() === v);
     super(categoryColors.memory, value, min, max, ramIcon);
   }
 
   getDescription(): string {
-    return this.getValue() + " GB";
+    return RAMSizes[this.getValue()] + " GB";
   }
 }
 
 class StorageSlice extends PropertySlice {
-  constructor(value: number, min: number, max: number) {
-    let c = d3.color(categoryColors.memory)?.darker().toString();
+  constructor(size: number) {
+    let c = d3.color(categoryColors.memory)?.brighter(0.5).toString();
+    let min = 0;
+    let max = StorageSizes.length - 1;
+    let value = StorageSizes.findIndex((v) => size.toString() === v);
     super(c || "orange", value, min, max, storageIcon);
   }
 
   getDescription(): string {
-    return this.getValue() + " GB";
+    return StorageSizes[this.getValue()] + " GB";
   }
 }
 
 class OSSlice extends PropertySlice {
   osType: string;
   constructor(versionName: string, osType: string) {
-    let c = d3.color(categoryColors.cpu)?.darker().toString();
+    let c = d3.color(categoryColors.cpu)?.brighter(0.5).toString();
     let min, max, value;
     if (osType.toLowerCase() === "android") {
       min = 0;

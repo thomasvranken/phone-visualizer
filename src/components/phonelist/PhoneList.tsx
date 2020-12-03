@@ -1,6 +1,6 @@
 import React from "react";
 import Draggable from "react-draggable";
-import { DEFAULT_PHONE_HEIGHT, DEFAULT_PHONE_WIDTH, DEFAULT_PHONE_IMG_PIXEL_HEIGHT, DEFAULT_PHONE_IMG_PIXEL_WIDTH, calcImgHeight, calcImgWidth } from "../../ts/phoneImage";
+import { calcImgHeight, calcImgWidth } from "../../ts/phoneImage";
 import { Phone } from "../../ts/types";
 
 
@@ -47,7 +47,9 @@ function DraggablePhone(props: {
     const rect = data.node.getBoundingClientRect();
     props.onDrag(props.phone, rect);
   }
+
   const dragHandlers = { onStart: onStart, onStop: onStop };
+  let right = props.index % 2 === 1 ? 20 : 40
   return (
     <Draggable {...dragHandlers} onDrag={onDrag}>
       <div
@@ -56,7 +58,8 @@ function DraggablePhone(props: {
           display: "flex",
           zIndex: 20,
           justifyContent: "center", //TODO why won't this work?
-          top: 40+props.index * (100),
+          top: 30+props.index * (70),
+          right: right
         }}
       >
         <img

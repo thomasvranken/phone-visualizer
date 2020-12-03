@@ -1,7 +1,7 @@
 import { PhotoChart, Graph, BatteryWifiChart, VideoChart, CameraGeneralChart, BasePriceChart, WorkingMemoryChart, CPUPowerChart, StorageChart, DisplayContrastSunChart } from "./draw";
-import * as d3 from "d3";
 import { MainGraph } from "./drawMain";
 import { BatterySpecs, CameraSpecs, ConnectivitySpecs, CPUSpecs, DisplaySpecs, ExtraFeaturesSpecs, MemorySpecs } from "./drawSpecs";
+import { categoryColors } from "../js/colors";
 
 /**
  * A generic class representing a category of properties for smartphone.
@@ -20,18 +20,6 @@ export class Category {
     this.currentGraph = this.graphs[0];
     this.color = color;
   }
-}
-
-export const categoryColors = {
-  "main": d3.schemeCategory10[9],
-  "price": d3.schemeCategory10[5],
-  "camera": d3.schemeCategory10[0],
-  "battery": d3.schemeCategory10[1],
-  "memory": d3.schemeCategory10[8],
-  "cpu": d3.schemeCategory10[2],
-  "screen": d3.schemeCategory10[3],
-  "connectivity": d3.schemeCategory10[7],
-  "features": d3.schemeCategory10[4],
 }
 
 /**

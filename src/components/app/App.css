@@ -3,6 +3,8 @@
   background-color: lightgray;
 }
 
+html, body {margin: 0; height: 100%; overflow: hidden}
+
 .outline-image {
   outline: 6px solid black;
 }
