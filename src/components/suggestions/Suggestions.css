@@ -1,12 +1,13 @@
 .suggestion {
     border-width: 1px;
-    border-color: grey;
-    border-style: groove;
+    background-color: rgb(246, 247, 255);
+    border-radius: 3%;
     padding: 5px;
     margin: 10px 0px;
 
 }
 
 p {
-    margin: 1px
+    margin: 1px;
+    color: rgb(41, 41, 41)
 }

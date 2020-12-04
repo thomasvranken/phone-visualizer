@@ -103,6 +103,7 @@ export class PhoneRepository {
       if (d.features.hasOwnProperty("specs")) {
         d.features.specs = new Map(Object.entries(d.features.specs));
       }
+      d.inActiveUse = true;
     });
     console.log("data for rest of program:", result);
     return result;
@@ -113,10 +114,20 @@ export class PhoneRepository {
   }
 
   /**
-   * Returns a list of phones which have a filename referencing an image.
+   * Returns a list of phones which are in active use for the application.
+   * This means the they have an image, and the relevant flag is set to true.
    */
-  getPhonesWithImage() {
-    return this.database.filter((p) => p.image !== undefined);
+  getPhonesInActiveUse() {
+    return this.database.filter((p) => p.image !== undefined && p.inActiveUse);
+  }
+
+  /**
+   * Sets the 'in active use' value of the given phone to the given value.
+   * @param phone 
+   * @param val 
+   */
+  setPhoneInActiveUse(phone: Phone, val: boolean) {
+    phone.inActiveUse = val
   }
 
   /**

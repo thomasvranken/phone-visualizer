@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     height: "95vh",
   },
   separate: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     textAlign: "center",
     background: "linear-gradient(45deg, #372d54 30%, #6e5d9e 90%)",
     borderRadius: 3,
@@ -64,6 +64,7 @@ function PhoneSpecs(props: {
   const [activeCategory, setActiveCategory] = useState<Category>(
     props.categories.main
   );
+  const [repo, setRepo] = useState<PhoneRepository>(props.repository)
   const [showCategories, setShowCategories] = useState<boolean>(false);
   const [trackedPhones, setTrackedPhones] = useState<TrackedPhone[]>([]);
   const phoneColRef = useRef<HTMLDivElement>();
@@ -75,6 +76,16 @@ function PhoneSpecs(props: {
 
   function handleGraphChange(newGraph: Graph) {
     setActiveCategory({ ...activeCategory, currentGraph: newGraph });
+  }
+
+  function handleActiveChange(phone: Phone, active: boolean) {
+    console.log(phone.name, active)
+    repo.setPhoneInActiveUse(phone, active)
+    setRepo(repo)
+    let newTracked = trackedPhones.filter((tp) => {
+      repo.getPhonesInActiveUse().map((p) => p.symbolId).includes(tp.id)
+    })
+    setTrackedPhones(newTracked)
   }
 
   /**
@@ -143,7 +154,7 @@ function PhoneSpecs(props: {
       <Grid item xs={2}>
         <Card className={classes.paper}>
           <Suggestions
-            phoneRepo={props.repository}
+            phoneRepo={repo}
             active={activeCategory}
             trackedPhones={trackedPhones}
           ></Suggestions>
@@ -186,7 +197,7 @@ function PhoneSpecs(props: {
               <Grid item xs>
                 <Card className={classes.paper}>
                   <MiddleContainer
-                    phoneRepo={props.repository}
+                    phoneRepo={repo}
                     active={activeCategory}
                     trackedPhones={trackedPhones}
                     onGraphChange={(graph) => handleGraphChange(graph)}
@@ -197,8 +208,9 @@ function PhoneSpecs(props: {
               <Grid item xs={1}>
                 <Card className={classes.separate} ref={phoneColRef}>
                   <PhoneList
-                    phones={props.repository.getPhonesWithImage()}
+                    phones={repo.database}
                     onDrag={(p, rect) => handleDrag(p, rect)}
+                    onSelectActive={(p, a) => handleActiveChange(p, a)}
                   ></PhoneList>
                 </Card>
               </Grid>
@@ -210,7 +222,7 @@ function PhoneSpecs(props: {
         if (!(activeCategory instanceof MainCategory)) {
           let width = DEFAULT_PHONE_IMG_PIXEL_WIDTH;
           let height = DEFAULT_PHONE_IMG_PIXEL_HEIGHT;
-          let phone = props.repository.findPhone(tp);
+          let phone = repo.findPhone(tp);
           if (phone) {
             width = calcImgWidth(phone);
             height = calcImgHeight(phone);

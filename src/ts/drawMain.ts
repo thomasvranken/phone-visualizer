@@ -205,7 +205,7 @@ export class MainGraph extends Graph {
       .data(slices)
       .enter()
       .each(function (s, i) {
-        let textRadius = 100;
+        let textRadius = 110;
         let arcLength = (Math.PI * 2) / (slices.length + 1);
         let angle = arcLength * (i - 0.75);
         let x = Math.cos(angle) * textRadius;
@@ -316,17 +316,32 @@ class CameraSlice extends PropertySlice {
   constructor(value: number, min: number, max: number) {
     super(categoryColors.camera, value, min, max, cameraIcon);
   }
+
+  getDescription(): string {
+    let score = ((this.value - this.min) / (this.max - this.min));
+    return getQualitativeDescr(score)
+  }
 }
 
 class BatterySlice extends PropertySlice {
   constructor(value: number, min: number, max: number) {
     super(categoryColors.battery, value, min, max, batteryIcon);
   }
+
+  getDescription(): string {
+    let score = ((this.value - this.min) / (this.max - this.min));
+    return getQualitativeDescr(score)
+  }
 }
 
 class CPUSlice extends PropertySlice {
   constructor(value: number, min: number, max: number) {
     super(categoryColors.cpu, value, min, max, cpuIcon);
+  }
+
+  getDescription(): string {
+    let score = ((this.value - this.min) / (this.max - this.min));
+    return getQualitativeDescr(score)
   }
 }
 
@@ -381,6 +396,23 @@ class OSSlice extends PropertySlice {
         ? androidVersions[this.value]
         : iOSVersions[this.value];
     return this.osType + " " + version;
+  }
+}
+
+/**
+ * Returns a qualitative description based on the value between
+ * 0 and 1.
+ * @param value
+ */
+function getQualitativeDescr(value: number): string {
+  if (value > 0.8) {
+    return "Zeer goed";
+  } else if (value > 0.6) {
+    return "Goed";
+  } else if (value > 0.4) {
+    return "Matig";
+  } else {
+    return "Beperkt";
   }
 }
 

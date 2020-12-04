@@ -63,6 +63,7 @@ export type Phone = {
   };
   symbolId: number;
   image?: string;
+  inActiveUse: boolean; // true if the phone should be shown in the app as a draggable image
 };
 
 export type OverviewPhone = {

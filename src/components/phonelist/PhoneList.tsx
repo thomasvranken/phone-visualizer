@@ -2,25 +2,35 @@ import React from "react";
 import Draggable from "react-draggable";
 import { calcImgHeight, calcImgWidth } from "../../ts/phoneImage";
 import { Phone } from "../../ts/types";
-
+import { SelectPhoneDialog } from "../selectphone/SelectPhoneDialog";
 
 function PhoneList(props: {
   phones: Phone[];
   onDrag: (phone: Phone, rect: any) => void;
+  onSelectActive: (phone: Phone, active: boolean) => void;
 }) {
+  console.log("in active use:",props.phones.length)
   return (
-    <div style={{backgroundColor: "black"}}>
-      {props.phones.map((p, i) => {
-        return (
-          <DraggablePhone
-            phone={p}
-            index={i}
-            key={p.name}
-            imageSrc={p.image as string}
-            onDrag={(p,rect) => props.onDrag(p, rect)}
-          ></DraggablePhone>
-        );
-      })}
+    <div>
+      <SelectPhoneDialog
+        phones={props.phones}
+        onSelectActive={(p, a) => props.onSelectActive(p, a)}
+      ></SelectPhoneDialog>
+      <div>
+        {props.phones.map((p, i) => {
+          if (p.inActiveUse) {
+          return (
+            <DraggablePhone
+              phone={p}
+              index={i}
+              key={p.name}
+              imageSrc={p.image as string}
+              onDrag={(p, rect) => props.onDrag(p, rect)}
+            ></DraggablePhone>
+          );}
+          return null
+        })}
+      </div>
     </div>
   );
 }
@@ -49,7 +59,7 @@ function DraggablePhone(props: {
   }
 
   const dragHandlers = { onStart: onStart, onStop: onStop };
-  let right = props.index % 2 === 1 ? 20 : 40
+  let right = props.index % 2 === 1 ? 20 : 40;
   return (
     <Draggable {...dragHandlers} onDrag={onDrag}>
       <div
@@ -58,8 +68,8 @@ function DraggablePhone(props: {
           display: "flex",
           zIndex: 20,
           justifyContent: "center", //TODO why won't this work?
-          top: 30+props.index * (55),
-          right: right
+          top: 60 + props.index * 50,
+          right: right,
         }}
       >
         <img

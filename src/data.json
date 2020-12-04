@@ -225,7 +225,7 @@
             "ram": 8,
             "storage": 128,
             "specs": {
-                "cardslot": "Geen"
+                "cardslot": "Nee"
             }
         },
         "battery": {
@@ -322,7 +322,7 @@
             "ram": 12,
             "storage": 128,
             "specs": {
-                "cardslot": "microSDXC (uses shared SIM slot)"
+                "cardslot": "Ja, microSDXC (uses shared SIM slot)"
             }
         },
         "battery": {
@@ -415,7 +415,7 @@
             "ram": 4,
             "storage": 64,
             "specs": {
-                "cardslot": "microSD tot 400 GB"
+                "cardslot": "Ja, microSD tot 400 GB"
             }
         },
         "battery": {
