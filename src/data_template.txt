@@ -86,7 +86,9 @@
             "gyro": false,
             "proximity": false,
             "compass": false,
-            "barometer": false
+            "barometer": false,
+            "face": false,
+            "sim": ""
         }
     },
     "physical":{

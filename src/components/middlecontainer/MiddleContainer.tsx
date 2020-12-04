@@ -64,7 +64,7 @@ function MiddleContainer(props: {
             {props.active.graphs.map((graph) => drawButton(graph))}
           </ButtonGroup>
         </Box>
-        <Box flexGrow={1} display="flex">
+        <Box flexGrow={1} display="flex" style={{height: "60%"}}>
           <GraphContainer
             phoneRepo={props.phoneRepo}
             graph={props.active.currentGraph}

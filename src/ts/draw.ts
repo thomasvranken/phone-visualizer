@@ -10,10 +10,11 @@ export const svgId = "graph-svg";
 export class Graph {
   name: string;
   explanation: string;
-
-  constructor(name: string, explanation: string) {
+  notes: string;
+  constructor(name: string, explanation: string, notes: string) {
     this.name = name;
     this.explanation = explanation;
+    this.notes = notes;
   }
 
   draw(
@@ -48,7 +49,7 @@ export class BarChart extends Graph {
     containerHeight: number
   ) {
     super.draw(phoneRepo, trackedPhones, containerWidth, containerHeight);
-    console.log(trackedPhones.length, containerHeight, containerWidth)
+    console.log(trackedPhones.length, containerHeight, containerWidth);
     console.log("draw bar");
     const phones = phoneRepo.database;
     let svg = d3.select("#" + svgId);
@@ -81,14 +82,22 @@ export class BarChart extends Graph {
       .attr("transform", `translate(${leftPercent * width},0)`)
       .call(d3.axisLeft(y));
 
-    // Append a title
+    // Append a title and subtitle
     svg
       .append("text")
       .attr("x", "50%")
-      .attr("y", ((titlePercent * height) / 3) * 2)
+      .attr("y", "20")
       .style("text-anchor", "middle")
       .style("font-size", 20)
       .text(this.explanation);
+    svg
+      .append("text")
+      .attr("x", "50%")
+      .attr("y", "37")
+      .style("text-anchor", "middle")
+      .style("font-size", 12)
+      .style("fill", "gray")
+      .text(this.notes);
 
     // Draw actual data as bars
     svg
@@ -136,6 +145,7 @@ export class BarChart extends Graph {
         })`;
       })
       .style("text-anchor", "middle")
+      .style("font-size", "10")
       // .style("text-shadow", "1px 1px 2px black");
       .style("font-weight", "bold");
     // .style("dominant-baseline", "middle")
@@ -155,7 +165,7 @@ export class BarChart extends Graph {
       .attr("font-size", "18");
 
     // Change all text to black (axis and title)
-    svg.selectAll("text").style("fill", "black");
+    // svg.selectAll("text").style("fill", "black");
   }
 
   /**
@@ -189,7 +199,7 @@ export class BarChart extends Graph {
 
 export class CameraGeneralChart extends BarChart {
   constructor() {
-    super("Algemeen", "Algemene DXO score (dxomark.com)");
+    super("Algemeen", "Algemene score", "Hoger is beter - dxomark.com");
   }
   getChartValue(phone: Phone) {
     return phone.camera.dxo.general;
@@ -198,7 +208,11 @@ export class CameraGeneralChart extends BarChart {
 
 export class PhotoChart extends BarChart {
   constructor() {
-    super("Foto's", "DXO score voor het nemen van foto's (dxomark.com)");
+    super(
+      "Foto's",
+      "Score voor het nemen van foto's",
+      "Hoger is beter - dxomark.com"
+    );
   }
   getChartValue(phone: Phone) {
     return phone.camera.dxo.photo;
@@ -207,7 +221,11 @@ export class PhotoChart extends BarChart {
 
 export class VideoChart extends BarChart {
   constructor() {
-    super("Video's", "DXO score voor het maken van video's (dxomark.com)");
+    super(
+      "Video's",
+      "Score voor het maken van video's",
+      "Hoger is beter - dxomark.com"
+    );
   }
   getChartValue(phone: Phone) {
     return phone.camera.dxo.video;
@@ -218,7 +236,8 @@ export class BatteryWifiChart extends BarChart {
   constructor() {
     super(
       "Batterij op wifi",
-      "Batterijduur bij continu wifigebruik (tweakers.net)"
+      "Batterijduur bij webbrowsen via wifi",
+      "tweakers.net"
     );
   }
 
@@ -234,9 +253,39 @@ export class BatteryWifiChart extends BarChart {
   }
 }
 
+export class BatteryVideoChart extends BarChart {
+  constructor() {
+    super(
+      "Batterij op video",
+      "Batterijduur bij het bekijken van films",
+      "Niet voor elk toestel gekend - tweakers.net"
+    );
+  }
+
+  getChartValue(phone: Phone) {
+    if (phone.battery.video) {
+      let copy = phone.battery.video as Duration
+      console.log(copy, phone.battery.wifi)
+      return copy.asHours();
+    }
+    return undefined;
+  }
+
+  convertToText(value: number) {
+    const duration = moment.duration(value, "hours");
+    return (
+      duration.days() * 24 + duration.hours() + "u" + duration.minutes() + "m"
+    );
+  }
+}
+
 export class BasePriceChart extends BarChart {
   constructor() {
-    super("Basis", "Basisprijs zonder abonnementen");
+    super(
+      "Basis",
+      "Basisprijs zonder abonnementen",
+      "vandenborre.be (indien niet beschikbaar: verkoopprijs fabrikant)"
+    );
   }
   getChartValue(phone: Phone) {
     return phone.price.base.eur + 0.01 * phone.price.base.cent;
@@ -249,7 +298,7 @@ export class BasePriceChart extends BarChart {
 
 export class WorkingMemoryChart extends BarChart {
   constructor() {
-    super("Werkgeheugen", "Werkgeheugen (in Gigabyte)");
+    super("Werkgeheugen", "Werkgeheugen (in GigaByte)", "Hoger is beter");
   }
   getChartValue(phone: Phone) {
     return phone.memory.ram;
@@ -258,7 +307,7 @@ export class WorkingMemoryChart extends BarChart {
 
 export class StorageChart extends BarChart {
   constructor() {
-    super("Opslag", "Opslagruimte (in Gigabyte)");
+    super("Opslag", "Opslagruimte (in GigaByte)", "Hoger is beter");
   }
   getChartValue(phone: Phone) {
     return phone.memory.storage;
@@ -267,7 +316,7 @@ export class StorageChart extends BarChart {
 
 export class CPUPowerChart extends BarChart {
   constructor() {
-    super("Rekenkracht", "Rekenkracht");
+    super("Rekenkracht", "Rekenkracht", "Hoger is beter - antutu.com");
   }
   getChartValue(phone: Phone) {
     return phone.cpu.benchmark;
@@ -276,11 +325,47 @@ export class CPUPowerChart extends BarChart {
 
 export class DisplayContrastSunChart extends BarChart {
   constructor() {
-    super("Contrast", "Contrast ratio in zonlicht (GSMarena.com)");
+    super(
+      "Contrast",
+      "Contrast ratio in zonlicht",
+      "Hoger is beter - niet voor elk toestel gekend - gsmarena.com"
+    );
   }
   getChartValue(phone: Phone) {
     if (phone.display.contrastSun) {
       return phone.display.contrastSun as number;
+    }
+    return undefined;
+  }
+}
+
+export class DisplayMaxBrightnessChart extends BarChart {
+  constructor() {
+    super(
+      "Maximum",
+      "Maximale helderheid in cd/m²",
+      "Hoger is beter - niet voor elk toestel gekend - tweakers.net"
+    );
+  }
+  getChartValue(phone: Phone) {
+    if (phone.display.maxHelder) {
+      return phone.display.maxHelder as number;
+    }
+    return undefined;
+  }
+}
+
+export class DisplayMinBrightnessChart extends BarChart {
+  constructor() {
+    super(
+      "Minimum",
+      "Minimale helderheid in cd/m²",
+      "Lager is beter - niet voor elk toestel gekend - tweakers.net"
+    );
+  }
+  getChartValue(phone: Phone) {
+    if (phone.display.minHelder) {
+      return phone.display.minHelder as number;
     }
     return undefined;
   }

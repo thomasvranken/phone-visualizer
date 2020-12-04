@@ -19,6 +19,7 @@ export type Phone = {
   };
   battery: {
     wifi: Duration;
+    video: Duration | undefined;
     specs: Map<string, string>;
   };
   camera: {
@@ -46,6 +47,8 @@ export type Phone = {
   display: {
     contrastSun: number | undefined;
     contrastNom: number | undefined;
+    maxHelder: number | undefined;
+    minHelder: number | undefined;
     specs: Map<string, string>;
   };
   connectivity: {

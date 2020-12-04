@@ -3,7 +3,7 @@
         "name": "Galaxy S10+",
         "price": {
             "base": {
-                "eur": 799,
+                "eur": 609,
                 "cent": 0
             }
         },
@@ -12,18 +12,32 @@
             "version": 9
         },
         "cpu": {
-            "benchmark": 123675
+            "benchmark": 123675,
+            "specs": {
+                "processor": "Exynos 9820 Octa-core 2.7GHz",
+                "gpu": "Adreno 640"
+            }
         },
         "memory": {
-            "ram": 6,
-            "storage": 128
+            "ram": 8,
+            "storage": 128,
+            "specs": {
+                "cardslot": "Ja, gedeeld met tweede SIM"
+            }
         },
         "battery": {
             "wifi": {
                 "hours": 11,
                 "minutes": 34
             },
-            "specs": {}
+            "video": {
+                "hours": 25,
+                "minutes": 36
+            },
+            "specs": {
+                "type": "Li-Ion 4100 mAh, non-removable",
+                "charging": "Fast charging 15W\r\nUSB Power Delivery 2.0\r\nFast Qi\/PMA wireless charging 15W\r\nReverse wireless charging 4.5W"
+            }
         },
         "camera": {
             "dxo": {
@@ -32,18 +46,52 @@
                 "video": 97,
                 "approximate": false
             },
-            "specs": {}
+            "specs": {
+                "aantalCameras": "3 achteraan, 1 vooraan",
+                "achteraan": "12 MP, f\/1.5-2.4, 26mm (wide), 1\/2.55\", 1.4\u00B5m, Dual Pixel PDAF, OIS\r\n12 MP, f\/2.4, 52mm (telephoto), 1\/3.6\", 1.0\u00B5m, AF, OIS, 2x optical zoom\r\n16 MP, f\/2.2, 12mm (ultrawide), 1\/3.1\", 1.0\u00B5m, Super Steady video",
+                "featuresAchteraan": "LED flash, auto-HDR, panorama",
+                "videoAchteraan": "4K@60fps (no EIS), 4K@30fps, 1080p@30/60/240fps, 720p@960fps, HDR10+, stereo sound rec., gyro-EIS & OIS",
+                "vooraan": "10 MP, f\/1.9, 26mm (wide), 1\/3\", 1.22\u00B5m, Dual Pixel PDAF\r\n8 MP, f\/2.2, 22mm (wide), 1\/4\", 1.12\u00B5m, depth sensor",
+                "featuresVooraan": "Dual video call, Auto-HDR",
+                "videoVooraan": "4K@30/60fps, 1080p@30fps"
+            }
         },
         "display": {
-            "contrastSun": 4.498
+            "contrastSun": 4.498,
+            "minHelder": 1.78,
+            "maxHelder": 864,
+            "specs": {
+                "type": "Dynamic AMOLED, HDR10+",
+                "size": "6.4 inches, 103.8 cm2 (~88.9% screen-to-body ratio)",
+                "resolution": "1440 x 3040 pixels, 19:9 ratio (~522 ppi density)",
+                "protection": "Corning Gorilla Glass 6"
+            }
         },
-        "connectivity":{
-            
+        "connectivity": {
+            "specs": {
+                "technology": "GSM / CDMA / HSPA / EVDO / LTE",
+                "wlan": "Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, Wi-Fi Direct, hotspot",
+                "bluetooth": "5.0, A2DP, LE, aptX",
+                "gps": "Yes, with A-GPS, GLONASS, BDS, GALILEO",
+                "nfc": "Yes",
+                "radio": "No",
+                "usb": "USB Type-C 3.1"
+            }
         },
-        "features":{
-
+        "features": {
+            "specs": {
+                "35mm": true,
+                "finger": true,
+                "accelero": true,
+                "gyro": true,
+                "proximity": true,
+                "compass": true,
+                "barometer": true,
+                "face": false,
+                "sim": "Dual SIM, Nano"
+            }
         },
-        "physical":{
+        "physical": {
             "width": 74.1,
             "height": 157.6
         },
@@ -64,16 +112,27 @@
             "version": 9
         },
         "cpu": {
-            "benchmark": 137326
+            "benchmark": 137326,
+            "specs": {
+                "processor": "Qualcomm SM8150 Snapdragon 855 Octa-core 2.84 GHz",
+                "gpu": "Adreno 640"
+            }
         },
         "memory": {
             "ram": 6,
-            "storage": 128
+            "storage": 64,
+            "specs": {
+                "cardslot": "Ja, Micro SD(HC) in 2de SIM kaartslot"
+            }
         },
         "battery": {
             "wifi": {
                 "hours": 8,
                 "minutes": 53
+            },
+            "video": {
+                "hours": 24,
+                "minutes": 39
             },
             "specs": {
                 "type": "Li-Po 3300 mAh, non-removable",
@@ -98,164 +157,46 @@
             }
         },
         "display": {
-            "contrastSun": 3.921
+            "contrastSun": 3.921,
+            "minHelder": 2.11,
+            "maxHelder": 487,
+            "specs": {
+                "type": "Super AMOLED, HDR10",
+                "size": "6.39 inches, 100.2 cm2 (~85.2% screen-to-body ratio)",
+                "resolution": "1080 x 2340 pixels, 19.5:9 ratio (~403 ppi density)",
+                "protection": "Corning Gorilla Glass 6"
+            }
         },
-        "connectivity":{
-            
+        "connectivity": {
+            "specs": {
+                "technology": "GSM / CDMA / HSPA / LTE",
+                "wlan": "Wi-Fi 802.11 a/b/g/n/ac, dual-band, Wi-Fi Direct, DLNA, hotspot",
+                "bluetooth": "5.0, A2DP, LE, aptX HD",
+                "gps": "Yes, with dual-band A-GPS, GLONASS, BDS, GALILEO, QZSS",
+                "nfc": "Yes",
+                "radio": "No",
+                "usb": "USB Type-C 2.0, USB On-The-Go"
+            }
         },
-        "features":{
-
+        "features": {
+            "specs": {
+                "35mm": false,
+                "finger": true,
+                "accelero": true,
+                "gyro": true,
+                "proximity": true,
+                "compass": true,
+                "barometer": false,
+                "face": false,
+                "sim": "Dual SIM (Nano-SIM, dual stand-by)"
+            }
         },
-        "physical":{
+        "physical": {
             "width": 74.4,
             "height": 157.5
         },
         "symbolId": 1,
-        "image": "xiaomi-mi-9.jpg"
-    },
-    {
-        "brand": "Apple",
-        "name": "iPhone 11",
-        "price": {
-            "base": {
-                "eur": 755,
-                "cent": 40
-            }
-        },
-        "os": {
-            "type": "iOS",
-            "version": 13
-        },
-        "cpu": {
-            "benchmark": 419453
-        },
-        "memory": {
-            "ram": 4,
-            "storage": 128
-        },
-        "battery": {
-            "wifi": {
-                "hours": 13,
-                "minutes": 8
-            },
-            "specs": {}
-        },
-        "camera": {
-            "dxo": {
-                "general": 109,
-                "photo": 112,
-                "video": 101,
-                "approximate": false
-            },
-            "specs": {}
-        },
-        "display": {
-            "contrastNom": 1505
-        },
-        "connectivity":{
-            
-        },
-        "features":{
-
-        },
-        "physical":{},
-        "symbolId": 2
-    },
-    {
-        "brand": "Huawei",
-        "name": "P30 Pro",
-        "price": {
-            "base": {
-                "eur": 579,
-                "cent": 0
-            }
-        },
-        "os": {
-            "type": "Android",
-            "version": 9
-        },
-        "cpu": {
-            "benchmark": 316156
-        },
-        "memory": {
-            "ram": 8,
-            "storage": 128
-        },
-        "battery": {
-            "wifi": {
-                "hours": 13,
-                "minutes": 57
-            },
-            "specs": {}
-        },
-        "camera": {
-            "dxo": {
-                "general": 116,
-                "photo": 125,
-                "video": 97,
-                "approximate": false
-            },
-            "specs": {}
-        },
-        "display": {
-            "contrastSun": 5.119
-        },
-        "connectivity":{
-            
-        },
-        "features":{
-
-        },
-        "physical":{},
-        "symbolId": 3
-    },
-    {
-        "brand": "Samsung",
-        "name": "Galaxy Note 10+",
-        "price": {
-            "base": {
-                "eur": 849,
-                "cent": 0
-            }
-        },
-        "os": {
-            "type": "Android",
-            "version": 9
-        },
-        "cpu": {
-            "benchmark": 342208
-        },
-        "memory": {
-            "ram": 12,
-            "storage": 256
-        },
-        "battery": {
-            "wifi": {
-                "hours": 12,
-                "minutes": 17
-            },
-            "specs": {}
-        },
-        "camera": {
-            "dxo": {
-                "general": 117,
-                "photo": 126,
-                "video": 98,
-                "approximate": false
-            },
-            "specs": {}
-        },
-        "display": {
-            
-        },
-        "connectivity":{
-            
-        },
-        "features":{
-
-        },
-        "physical":{},
-        "symbolId": 4
+        "image": "xiaomi-mi-9.png"
     },
     {
         "brand": "Oneplus",
@@ -329,7 +270,7 @@
 
             }
         },
-        "connectivity":{
+        "connectivity": {
             "specs": {
                 "technology": "GSM / CDMA / HSPA / LTE / 5G",
                 "wlan": "Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, Wi-Fi Direct, DLNA, hotspot",
@@ -340,7 +281,7 @@
                 "usb": "USB Type-C 3.1, USB On-The-Go"
             }
         },
-        "features":{
+        "features": {
             "specs": {
                 "35mm": false,
                 "finger": true,
@@ -350,7 +291,7 @@
                 "compass": true
             }
         },
-        "physical":{
+        "physical": {
             "width": 74.4,
             "height": 165.3
         },
@@ -412,17 +353,16 @@
             }
         },
         "display": {
-            "contrastSun": 0,
             "minHelder": 1.77,
             "maxHelder": 1005,
             "specs": {
                 "type": "Dynamic AMOLED 2X, 120Hz, HDR10+, 1400 nits (peak)",
                 "size": "6.9 inches, 114.0 cm2 (~89.9% screen-to-body ratio)",
                 "resolution": "1440 x 3200 pixels, 20:9 ratio (~511 ppi density)",
-                "protection": "Corning Gorilla Glass 6\r\n Always-on display\r\n120Hz@FHD\/60Hz@QHD refresh rate"
+                "protection": "Corning Gorilla Glass 6"
             }
         },
-        "connectivity":{
+        "connectivity": {
             "specs": {
                 "technology": "GSM / CDMA / HSPA / EVDO / LTE / 5G",
                 "wlan": "Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, Wi-Fi Direct, hotspot",
@@ -433,7 +373,7 @@
                 "usb": "USB Type-C 3.2, USB On-The-Go"
             }
         },
-        "features":{
+        "features": {
             "specs": {
                 "35mm": false,
                 "finger": true,
@@ -444,7 +384,7 @@
                 "barometer": true
             }
         },
-        "physical":{
+        "physical": {
             "width": 76,
             "height": 166.9
         },
@@ -453,7 +393,7 @@
     },
     {
         "brand": "Fairphone",
-        "name": "Fairphone 3",
+        "name": "3",
         "price": {
             "base": {
                 "eur": 419,
@@ -465,7 +405,7 @@
             "version": 10
         },
         "cpu": {
-            "benchmark": 104862 ,
+            "benchmark": 104862,
             "specs": {
                 "processor": "Qualcomm SDM632 Snapdragon 632 Octa-core 1.8 GHz",
                 "gpu": "Adreno 506"
@@ -510,7 +450,6 @@
             }
         },
         "display": {
-            "contrastSun": 0,
             "minHelder": 19.57,
             "maxHelder": 470,
             "specs": {
@@ -520,7 +459,7 @@
                 "protection": "Corning Gorilla Glass 5"
             }
         },
-        "connectivity":{
+        "connectivity": {
             "specs": {
                 "technology": "GSM / HSPA / LTE",
                 "wlan": "Wi-Fi 802.11 a/b/g/n/ac, dual-band, Wi-Fi Direct, hotspot",
@@ -531,7 +470,7 @@
                 "usb": "USB Type-C 2.0"
             }
         },
-        "features":{
+        "features": {
             "specs": {
                 "35mm": true,
                 "finger": true,
@@ -542,7 +481,7 @@
                 "barometer": false
             }
         },
-        "physical":{
+        "physical": {
             "width": 71.8,
             "height": 158
         },
@@ -608,7 +547,6 @@
             }
         },
         "display": {
-            "contrastSun": 0,
             "minHelder": 1.9,
             "maxHelder": 855,
             "specs": {
@@ -618,7 +556,7 @@
                 "protection": "Corning Gorilla Glass 6"
             }
         },
-        "connectivity":{
+        "connectivity": {
             "specs": {
                 "technology": "GSM / CDMA / HSPA / EVDO / LTE / 5G",
                 "wlan": "Wi-Fi 802.11 a/b/g/n/ac, dual-band, Wi-Fi Direct, hotspot",
@@ -629,7 +567,7 @@
                 "usb": "USB Type-C 3.1"
             }
         },
-        "features":{
+        "features": {
             "specs": {
                 "35mm": false,
                 "finger": true,
@@ -640,11 +578,305 @@
                 "barometer": true
             }
         },
-        "physical":{
+        "physical": {
             "width": 70.4,
             "height": 144.7
         },
         "symbolId": 13,
         "image": "google-pixel-5.png"
+    },
+    {
+        "brand": "Apple",
+        "name": "iPhone SE 2020",
+        "price": {
+            "base": {
+                "eur": 432,
+                "cent": 0
+            }
+        },
+        "os": {
+            "type": "iOS",
+            "version": 13
+        },
+        "cpu": {
+            "benchmark": 462253,
+            "specs": {
+                "processor": "Apple A13 Bionic Hexa-core 2.65 GHz",
+                "gpu": "Apple GPU (4-core graphics)"
+            }
+        },
+        "memory": {
+            "ram": 3,
+            "storage": 64,
+            "specs": {
+                "cardslot": "No"
+            }
+        },
+        "battery": {
+            "wifi": {
+                "hours": 11,
+                "minutes": 7
+            },
+            "video": {
+                "hours": 10,
+                "minutes": 46
+            },
+            "specs": {
+                "type": "Li-Ion 1821 mAh, non-removable (6.96 Wh)",
+                "charging": "Fast charging 18W, 50% in 30 min (advertised)\r\nQi wireless charging"
+            }
+        },
+        "camera": {
+            "dxo": {
+                "general": 103,
+                "photo": 108,
+                "video": 105,
+                "approximate": false
+            },
+            "specs": {
+                "aantalCameras": "1 achteraan, 1 vooraan",
+                "achteraan": "12 MP, f/1.8 (wide), PDAF, OIS",
+                "featuresAchteraan": "Quad-LED dual-tone flash, HDR, panorama",
+                "videoAchteraan": "4K@24/30/60fps, 1080p@30/60/120/240fps, HDR, OIS, stereo sound rec.",
+                "vooraan": "7 MP, f/2.2",
+                "featuresVooraan": "HDR",
+                "videoVooraan": "1080p@30fps; gyro-EIS"
+            }
+        },
+        "display": {
+            "maxHelder": 723,
+            "specs": {
+                "type": "Retina IPS LCD, 625 nits (typ)",
+                "size": "4.7 inches, 60.9 cm2 (~65.4% screen-to-body ratio)",
+                "resolution": "750 x 1334 pixels, 16:9 ratio (~326 ppi density)",
+                "protection": "Ion-strengthened glass, oleophobic coating"
+            }
+        },
+        "connectivity": {
+            "specs": {
+                "technology": "GSM / CDMA / HSPA / EVDO / LTE",
+                "wlan": "Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, hotspot",
+                "bluetooth": "5.0, A2DP, LE",
+                "gps": "Yes, with A-GPS, GLONASS",
+                "nfc": "Yes",
+                "radio": "No",
+                "usb": "Lightning, USB 2.0"
+            }
+        },
+        "features": {
+            "specs": {
+                "35mm": false,
+                "finger": true,
+                "accelero": true,
+                "gyro": true,
+                "proximity": true,
+                "compass": true,
+                "barometer": true
+            }
+        },
+        "physical": {
+            "width": 67.3,
+            "height": 138.4
+        },
+        "symbolId": 14,
+        "image": "apple-iphone-se2020.png"
+    },
+    {
+        "brand": "Apple",
+        "name": "iPhone XR",
+        "price": {
+            "base": {
+                "eur": 549,
+                "cent": 0
+            }
+        },
+        "os": {
+            "type": "iOS",
+            "version": 12
+        },
+        "cpu": {
+            "benchmark": 422465,
+            "specs": {
+                "processor": "Apple A12 Bionic Hexa-core 2.5 GHz",
+                "gpu": "Apple GPU (4-core graphics)"
+            }
+        },
+        "memory": {
+            "ram": 3,
+            "storage": 64,
+            "specs": {
+                "cardslot": "No"
+            }
+        },
+        "battery": {
+            "wifi": {
+                "hours": 12,
+                "minutes": 57
+            },
+            "video": {
+                "hours": 15,
+                "minutes": 5
+            },
+            "specs": {
+                "type": "Li-Ion 2942 mAh, non-removable (11.16 Wh)",
+                "charging": "Fast charging 15W, 50% in 30 min (advertised)\r\nUSB Power Delivery 2.0\r\nQi wireless charging"
+            }
+        },
+        "camera": {
+            "dxo": {
+                "general": 101,
+                "photo": 104,
+                "video": 96,
+                "approximate": false
+            },
+            "specs": {
+                "aantalCameras": "1 achteraan, 2 vooraan",
+                "achteraan": "12 MP, f\/1.8, 26mm (wide), 1\/2.55\", 1.4\u00B5m, PDAF, OIS",
+                "featuresAchteraan": "Quad-LED dual-tone flash, HDR (photo/panorama)",
+                "videoAchteraan": "4K@24/30/60fps, 1080p@30/60/120/240fps, HDR, stereo sound rec.",
+                "vooraan": "7 MP, f\/2.2, 32mm (standard)\r\nSL 3D, (depth\/biometrics sensor)",
+                "featuresVooraan": "HDR",
+                "videoVooraan": "1080p@60fps"
+            }
+        },
+        "display": {
+            "minHelder": 2.1,
+            "maxHelder": 576,
+            "specs": {
+                "type": "Liquid Retina IPS LCD, 625 nits (typ)",
+                "size": "6.1 inches, 90.3 cm2 (~79.0% screen-to-body ratio)",
+                "resolution": "828 x 1792 pixels, 19.5:9 ratio (~326 ppi density)",
+                "protection": "Scratch-resistant glass, oleophobic coating"
+            }
+        },
+        "connectivity": {
+            "specs": {
+                "technology": "GSM / CDMA / HSPA / EVDO / LTE",
+                "wlan": "Wi-Fi 802.11 a/b/g/n/ac, dual-band, hotspot",
+                "bluetooth": "5.0, A2DP, LE",
+                "gps": "Yes, with A-GPS, GLONASS, GALILEO, QZSS",
+                "nfc": "Yes",
+                "radio": "No",
+                "usb": "Lightning, USB 2.0"
+            }
+        },
+        "features": {
+            "specs": {
+                "35mm": false,
+                "finger": false,
+                "accelero": true,
+                "gyro": true,
+                "proximity": true,
+                "compass": true,
+                "barometer": true,
+                "face": true
+            }
+        },
+        "physical": {
+            "width": 75.7,
+            "height": 150.9
+        },
+        "symbolId": 15,
+        "image": "apple-iphone-xr.png"
+    },
+    {
+        "brand": "Apple",
+        "name": "iPhone 11",
+        "price": {
+            "base": {
+                "eur": 689,
+                "cent": 0
+            }
+        },
+        "os": {
+            "type": "iOS",
+            "version": 13
+        },
+        "cpu": {
+            "benchmark": 501223,
+            "specs": {
+                "processor": "Apple A13 Bionic Hexa-core 2.65 GHz",
+                "gpu": "Apple GPU (4-core graphics)"
+            }
+        },
+        "memory": {
+            "ram": 4,
+            "storage": 128,
+            "specs": {
+                "cardslot": "Nee"
+            }
+        },
+        "battery": {
+            "wifi": {
+                "hours": 13,
+                "minutes": 8
+            },
+            "video": {
+                "hours": 12,
+                "minutes": 5
+            },
+            "specs": {
+                "type": "Li-Ion 3110 mAh, non-removable (11.91 Wh)",
+                "charging": "Fast charging 18W, 50% in 30 min (advertised)\r\nUSB Power Delivery 2.0\r\nQi wireless charging"
+            }
+        },
+        "camera": {
+            "dxo": {
+                "general": 109,
+                "photo": 112,
+                "video": 101,
+                "approximate": false
+            },
+            "specs": {
+                "aantalCameras": "2 achteraan, 2 vooraan",
+                "achteraan": "12 MP, f\/1.8, 26mm (wide), 1\/2.55\", 1.4\u00B5m, dual pixel PDAF, OIS\r\n12 MP, f\/2.4, 120\u02DA, 13mm (ultrawide), 1\/3.6\"",
+                "featuresAchteraan": "Dual-LED dual-tone flash, HDR (photo/panorama)",
+                "videoAchteraan": "4K@24/30/60fps, 1080p@30/60/120/240fps, HDR, stereo sound rec.",
+                "vooraan": "12 MP, f\/2.2, 23mm (wide), 1\/3.6\"\r\nSL 3D, (depth\/biometrics sensor)",
+                "featuresVooraan": "HDR",
+                "videoVooraan": "4K@24/30/60fps, 1080p@30/60/120fps, gyro-EIS"
+            }
+        },
+        "display": {
+            "contrastNom": 1505,
+            "minHelder": 2.51,
+            "maxHelder": 671,
+            "specs": {
+                "type": "Liquid Retina IPS LCD, 625 nits (typ)",
+                "size": "6.1 inches, 90.3 cm2 (~79.0% screen-to-body ratio)",
+                "resolution": "828 x 1792 pixels, 19.5:9 ratio (~326 ppi density)",
+                "protection": "Scratch-resistant glass, oleophobic coating"
+            }
+        },
+        "connectivity": {
+            "specs": {
+                "technology": "GSM / CDMA / HSPA / EVDO / LTE",
+                "wlan": "Wi-Fi 802.11 a/b/g/n/ac/6, dual-band, hotspot",
+                "bluetooth": "5.0, A2DP, LE",
+                "gps": "Yes, with A-GPS, GLONASS, GALILEO, QZSS",
+                "nfc": "Yes",
+                "radio": "No",
+                "usb": "Lightning, USB 2.0"
+            }
+        },
+        "features": {
+            "specs": {
+                "35mm": false,
+                "finger": false,
+                "accelero": true,
+                "gyro": true,
+                "proximity": true,
+                "compass": true,
+                "barometer": true,
+                "face": true,
+                "sim": "Enkel, Nano SIM"
+            }
+        },
+        "physical": {
+            "width": 75.7,
+            "height": 150.9
+        },
+        "symbolId": 2,
+        "image": "apple-iphone-11.jpg"
     }
 ]

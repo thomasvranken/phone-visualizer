@@ -28,12 +28,12 @@ export const iOSVersions = ["10", "11", "12", "13", "14"];
 /**
  * A list containing (semi-)recent sizes for RAM.
  */
-export const RAMSizes = ["1", "2", "3", "4", "6", "8", "10", "12", "16"]
+export const RAMSizes = ["1", "2", "3", "4", "6", "8", "10", "12", "16"];
 
 /**
  * A list containing (semi-)recent sizes for long term storage.
  */
-export const StorageSizes = ["8", "16", "32", "64", "128", "256", "512"]
+export const StorageSizes = ["8", "16", "32", "64", "128", "256", "512"];
 
 export class PhoneRepository {
   tuio: Tuio;
@@ -71,7 +71,7 @@ export class PhoneRepository {
 
   /**
    * Parses the JSON data into an array of Phone objects.
-   * @param data 
+   * @param data
    */
   parseData(data: any): Phone[] {
     let result = JSON.parse(JSON.stringify(data));
@@ -80,7 +80,12 @@ export class PhoneRepository {
       d.battery.wifi = moment.duration(
         `${d.battery.wifi.hours}:${d.battery.wifi.minutes}`
       );
-      d.os.version = d.os.version.toString()
+      if (d.battery.hasOwnProperty("video")) {
+        d.battery.video = moment.duration(
+          `${d.battery.video.hours}:${d.battery.video.minutes}`
+        );
+      }
+      d.os.version = d.os.version.toString();
       d.camera.specs = new Map(Object.entries(d.camera.specs));
       d.battery.specs = new Map(Object.entries(d.battery.specs));
       if (d.memory.hasOwnProperty("specs")) {
@@ -116,11 +121,11 @@ export class PhoneRepository {
 
   /**
    * Returns the phone associated with the given tracked phone entity.
-   * @param trackedPhone 
-   * 
+   * @param trackedPhone
+   *
    */
   findPhone(trackedPhone: TrackedPhone) {
-    return this.database.find(p => p.symbolId === trackedPhone.id)
+    return this.database.find((p) => p.symbolId === trackedPhone.id);
   }
 }
 

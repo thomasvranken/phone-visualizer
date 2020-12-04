@@ -24,7 +24,7 @@ import { categoryColors } from "../js/colors";
  */
 export class MainGraph extends Graph {
   constructor() {
-    super("overzicht", "overzicht");
+    super("overzicht", "overzicht", "");
   }
 
   /**

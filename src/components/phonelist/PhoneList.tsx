@@ -58,7 +58,7 @@ function DraggablePhone(props: {
           display: "flex",
           zIndex: 20,
           justifyContent: "center", //TODO why won't this work?
-          top: 30+props.index * (70),
+          top: 30+props.index * (55),
           right: right
         }}
       >

@@ -23,7 +23,7 @@ export class TechnicalSpecs extends Graph {
    * in a Phone object to get to certain specs.
    */
   constructor(public table: TableEntry[], public superFields: string[]) {
-    super("Specificaties", "Technisch specificaties");
+    super("Specificaties", "Technisch specificaties", "");
   }
 
   draw(
@@ -73,21 +73,30 @@ export class TechnicalSpecs extends Graph {
       .each(function (entry) {
         let row = d3.select(this);
         let field = entry.fieldName;
+        let text: string;
+        let color: string = "black";
         if (specs && specs.has(field)) {
+          text = specs.get(field).toString();
+          if (text.includes("Yes") || text.includes("Ja") || text === "true") {
+            color = "green";
+            if (text === "true" || text === "Yes") {
+              text = "Ja";
+            }
+          } else if (
+            text.includes("No") ||
+            text.includes("Nee") ||
+            text === "false"
+          ) {
+            color = "red";
+            if (text === "false" || text === "No") {
+              text = "Nee";
+            }
+          }
           row
             .append("td")
             .text(entry.fieldDescription)
             .style("font-size", "12px")
-            .style("width", "25%")
-          let text: any = specs.get(field).toString();
-          let color = "black"
-          if (text === "true") {
-            text = "Ja"
-            color = "green"
-          } else if (text === "false") {
-            text = "Nee"
-            color = "red"
-          }
+            .style("width", "25%");
           console.log(text);
           let parts = text.split("\n");
           let details = row.append("td");
@@ -97,7 +106,7 @@ export class TechnicalSpecs extends Graph {
               .text(part)
               .classed("specs-p", true)
               .style("font-size", "12px")
-              .style("color", color)
+              .style("color", color);
           }
         }
       });
@@ -133,9 +142,7 @@ export class BatterySpecs extends TechnicalSpecs {
 export class MemorySpecs extends TechnicalSpecs {
   constructor() {
     super(
-      [
-        new TableEntry("cardslot", "Ruimte voor externe opslag"),
-      ],
+      [new TableEntry("cardslot", "Ruimte voor externe opslag")],
       ["memory", "specs"]
     );
   }
@@ -195,6 +202,8 @@ export class ExtraFeaturesSpecs extends TechnicalSpecs {
         new TableEntry("proximity", "Nabijheidssensor"),
         new TableEntry("compass", "Kompas"),
         new TableEntry("barometer", "Barometer"),
+        new TableEntry("face", "Gezichtsherkenning"),
+        new TableEntry("sim", "SIM-kaartslot"),
       ],
       ["features", "specs"]
     );
