@@ -28,12 +28,12 @@ export const iOSVersions = ["10", "11", "12", "13", "14"];
 /**
  * A list containing (semi-)recent sizes for RAM.
  */
-export const RAMSizes = ["1", "2", "3", "4", "6", "8", "10", "12", "16"];
+export const RAMSizes = ["2", "3", "4", "6", "8", "10", "12", "16"];
 
 /**
  * A list containing (semi-)recent sizes for long term storage.
  */
-export const StorageSizes = ["8", "16", "32", "64", "128", "256", "512"];
+export const StorageSizes = ["16", "32", "64", "128", "256", "512"];
 
 export class PhoneRepository {
   tuio: Tuio;
