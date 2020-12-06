@@ -79,7 +79,7 @@ function PhoneSpecs(props: {
   }
 
   function handleActiveChange(phone: Phone, active: boolean) {
-    console.log(phone.name, active)
+    // console.log(phone.name, active)
     repo.setPhoneInActiveUse(phone, active)
     setRepo(repo)
     let newTracked = trackedPhones.filter((tp) => {
@@ -140,7 +140,7 @@ function PhoneSpecs(props: {
         setTrackedPhones(newList);
       }
     }
-    console.log("now tracking", trackedPhones.length, "phones");
+    // console.log("now tracking", trackedPhones.length, "phones");
   }
   const classes = useStyles();
   let suggestions;

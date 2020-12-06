@@ -13,13 +13,10 @@ function GraphContainer(props: {
 }) {
   const graphRef = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
-    // console.log("effect triggered");
     if (graphRef.current) {
       let rect = graphRef.current.getBoundingClientRect();
       let graphWidth = rect.width;
       let graphHeight = rect.height;
-      console.log(graphWidth, graphHeight);
-      console.log("drawing graph")
       props.graph.draw(
         props.phoneRepo,
         props.trackedPhones,

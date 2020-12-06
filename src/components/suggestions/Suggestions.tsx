@@ -15,7 +15,7 @@ function Suggestions(props: {
   let chart = props.active.currentGraph as BarChart;
 
   /**
-   * Returns a list of phones to suggest 
+   * Returns a list of phones to suggest
    * (one per tracked phone, no duplicates).
    */
   function suggestSimilar() {
@@ -23,13 +23,25 @@ function Suggestions(props: {
     for (let tp of props.trackedPhones) {
       // Gets phone list sorted on graph property
       let sorted = [...props.phoneRepo.database]
-        .filter((p) => chart.getChartValue(p) !== undefined)
+        .filter((p) => {
+          return chart.getChartValue(p) !== undefined;
+        })
         .sort((a, b) => {
           let va = chart.getChartValue(a) as number;
           let vb = chart.getChartValue(b) as number;
           return va - vb;
         });
-
+      console.log("before",sorted.length);
+      // Filter out other tracked phones as possible suggestions
+      sorted = sorted.filter(p => {
+        for (let tp2 of props.trackedPhones) {
+          if (tp2.id !== tp.id && p.symbolId === tp2.id){
+            return false;
+          }
+        }
+        return true
+      })
+      console.log("after",sorted.length);
       let phone = sorted.find((p) => p.symbolId === tp.id);
       if (phone) {
         let index = sorted.indexOf(phone);
@@ -55,7 +67,7 @@ function Suggestions(props: {
       }
     }
     // Filter duplicates
-    return list.filter((v,i) => list.indexOf(v) === i);
+    return list.filter((v, i) => list.indexOf(v) === i);
   }
 
   function getDescription(phone: Phone): string[] {
@@ -75,10 +87,12 @@ function Suggestions(props: {
       <h6>Suggesties</h6>
       {suggestions.map((s, i) => (
         <div key={i} className="suggestion">
-          <img src={"/images/phones/" + s.image}
-          height={0.7*calcImgHeight(s)}
-          width={0.7*calcImgWidth(s)}
-          alt=""></img>
+          <img
+            src={"/images/phones/" + s.image}
+            height={0.7 * calcImgHeight(s)}
+            width={0.7 * calcImgWidth(s)}
+            alt=""
+          ></img>
           {getDescription(s).map((d, i) => (
             <p key={i}>{d}</p>
           ))}

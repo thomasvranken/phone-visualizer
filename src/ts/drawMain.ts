@@ -47,14 +47,12 @@ export class MainGraph extends Graph {
       containerHeight = 500;
     }
     super.draw(phoneRepo, trackedPhones, containerWidth, containerHeight);
-    console.log(containerHeight, containerWidth);
     if (trackedPhones.length === 0) {
       this.drawPlaceSmartphone(svgId);
     } else {
       trackedPhones.forEach((tp) => {
         let phone = phoneRepo.database.find((p) => p.symbolId === tp.id);
         if (phone) {
-          console.log(tp.rect.x, tp.rect.y);
           this.drawMainGraph(svgId, phone, tp.rect, phoneRepo);
         }
       });

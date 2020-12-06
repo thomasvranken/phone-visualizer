@@ -23,7 +23,6 @@ export class Graph {
     containerWidth: number,
     containerHeight: number
   ): void {
-    console.log("draw super");
     d3.select("#" + chartId + " > *").remove();
     d3.select("#" + chartId)
       .selectAll("*")
@@ -33,7 +32,6 @@ export class Graph {
       .attr("width", containerWidth)
       .attr("height", containerHeight)
       .attr("id", svgId);
-    console.log("draw super complete");
   }
 }
 
@@ -49,8 +47,6 @@ export class BarChart extends Graph {
     containerHeight: number
   ) {
     super.draw(phoneRepo, trackedPhones, containerWidth, containerHeight);
-    console.log(trackedPhones.length, containerHeight, containerWidth);
-    console.log("draw bar");
     const phones = phoneRepo.database;
     let svg = d3.select("#" + svgId);
     let titlePercent = 0.1;
@@ -61,7 +57,6 @@ export class BarChart extends Graph {
         return { value: this.getChartValue(p), id: p.symbolId };
       })
       .filter((p) => p.value !== undefined) as BarChartData[];
-    // console.log("bars for drawing:", data.length)
     data.sort((a, b) => b.value - a.value);
     let marginHorizontal = 5,
       marginVertical = 5;
@@ -265,7 +260,6 @@ export class BatteryVideoChart extends BarChart {
   getChartValue(phone: Phone) {
     if (phone.battery.video) {
       let copy = phone.battery.video as Duration
-      console.log(copy, phone.battery.wifi)
       return copy.asHours();
     }
     return undefined;

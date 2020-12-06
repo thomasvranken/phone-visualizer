@@ -9,7 +9,7 @@ function PhoneList(props: {
   onDrag: (phone: Phone, rect: any) => void;
   onSelectActive: (phone: Phone, active: boolean) => void;
 }) {
-  console.log("in active use:",props.phones.length)
+  // console.log("in active use:",props.phones.length)
   return (
     <div>
       <SelectPhoneDialog
@@ -44,11 +44,11 @@ function DraggablePhone(props: {
   const file = "/images/phones/" + props.imageSrc;
 
   function onStart() {
-    console.log("started drag");
+    // console.log("started drag");
   }
 
   function onStop(e: any, data: any) {
-    console.log("stopped drag");
+    // console.log("stopped drag");
     const rect = data.node.getBoundingClientRect();
     props.onDrag(props.phone, rect);
   }
