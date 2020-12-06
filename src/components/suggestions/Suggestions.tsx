@@ -31,7 +31,6 @@ function Suggestions(props: {
           let vb = chart.getChartValue(b) as number;
           return va - vb;
         });
-      console.log("before",sorted.length);
       // Filter out other tracked phones as possible suggestions
       sorted = sorted.filter(p => {
         for (let tp2 of props.trackedPhones) {
@@ -41,7 +40,6 @@ function Suggestions(props: {
         }
         return true
       })
-      console.log("after",sorted.length);
       let phone = sorted.find((p) => p.symbolId === tp.id);
       if (phone) {
         let index = sorted.indexOf(phone);
