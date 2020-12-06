@@ -6,7 +6,6 @@ import "./LeftContainer.css";
 import * as d3 from "d3";
 import { getContrast } from "../../js/colors";
 
-
 function LeftContainer(props: {
   categories: CategoryRepository;
   active: Category;
@@ -28,6 +27,11 @@ function LeftContainer(props: {
         onClick={() => props.onClick(props.categories.main)}
       ></CatButton>
       <CatButton
+        category={props.categories.price}
+        highlight={shouldHighlight(props.categories.price)}
+        onClick={() => props.onClick(props.categories.price)}
+      ></CatButton>
+      <CatButton
         category={props.categories.camera}
         highlight={shouldHighlight(props.categories.camera)}
         onClick={() => props.onClick(props.categories.camera)}
@@ -36,11 +40,6 @@ function LeftContainer(props: {
         category={props.categories.battery}
         highlight={shouldHighlight(props.categories.battery)}
         onClick={() => props.onClick(props.categories.battery)}
-      ></CatButton>
-      <CatButton
-        category={props.categories.price}
-        highlight={shouldHighlight(props.categories.price)}
-        onClick={() => props.onClick(props.categories.price)}
       ></CatButton>
       <CatButton
         category={props.categories.memory}
@@ -95,7 +94,7 @@ export function CatButton(props: {
   // );
   // More efficient implementation with similar result
   let background = props.highlight ? props.category.color : "#D3D3D3";
-  let color = getContrast(background)
+  let color = getContrast(background);
   return (
     <Button
       style={{

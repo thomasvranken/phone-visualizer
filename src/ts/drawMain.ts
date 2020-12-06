@@ -13,11 +13,20 @@ import { TrackedPhone, Phone } from "./types";
 import smartphoneIcon from "../images/icons/smartphone-icon.png";
 import cameraIcon from "../images/icons/camera.png";
 import batteryIcon from "../images/icons/battery.png";
-import cpuIcon from "../images/icons/cpu.png";
+import cpuIcon from "../images/icons/cpu_alt.png";
 import ramIcon from "../images/icons/ram.png";
 import storageIcon from "../images/icons/storage.png";
 import osIcon from "../images/icons/os.png";
 import { categoryColors } from "../js/colors";
+
+/**
+ * Width and height of each icon.
+ */
+const ICON_SIZE = 25;
+/**
+ * Distance to draw icons from the center of a phone
+ */
+const ICON_RADIUS = 65;
 
 /**
  * The main graph, a radial chart displaying the most important properties.
@@ -44,7 +53,7 @@ export class MainGraph extends Graph {
     // NOTE: containerheight is 0 when changing to main for some reason...
     // This is fixed when moving a phone
     if (containerHeight === 0) {
-      containerHeight = 500;
+      containerHeight = 1000;
     }
     super.draw(phoneRepo, trackedPhones, containerWidth, containerHeight);
     if (trackedPhones.length === 0) {
@@ -177,22 +186,20 @@ export class MainGraph extends Graph {
       .enter()
       .append("image")
       .each(function (s, i) {
-        let iconSize = 20;
-        let iconRadius = 65;
         let arcLength = (Math.PI * 2) / (slices.length + 1);
         let angle = arcLength * (i - 0.75);
-        let x = Math.cos(angle) * iconRadius;
-        let y = Math.sin(angle) * iconRadius;
+        let x = Math.cos(angle) * ICON_RADIUS;
+        let y = Math.sin(angle) * ICON_RADIUS;
         d3.select(this)
           .attr("xlink:href", s.imageName)
           .attr("x", x)
           .attr("y", y)
           // .classed("outline-image", true)
           .style("fill", "black")
-          .attr("width", iconSize)
-          .attr("height", iconSize)
+          .attr("width", ICON_SIZE)
+          .attr("height", ICON_SIZE)
           .attr("transform", (d) => {
-            let res = "translate(" + -iconSize / 2 + "," + -iconSize / 2 + ")";
+            let res = "translate(" + -ICON_SIZE / 2 + "," + -ICON_SIZE / 2 + ")";
             return res;
           });
       });
@@ -209,17 +216,20 @@ export class MainGraph extends Graph {
         let x = Math.cos(angle) * textRadius;
         let y = Math.sin(angle) * textRadius;
         // let rotate = (angle < Math.PI / 2 ) ? -20 : 20
-        sliceGroup
-          .append("text")
-          .classed("descr", true)
-          .text(s.getDescription())
-          .attr("x", x)
-          .attr("y", y)
-          .style("fill", "black")
-          .style("text-anchor", "middle")
-          .style("font-size", "14");
-        // .attr("transform", `rotate(${rotate}, ${x}, ${y})`)
-        // .style("dominant-baseline", "middle");
+        let lines = s.getDescription().split("\n");
+        lines.forEach((line, i) => {
+          sliceGroup
+            .append("text")
+            .classed("descr", true)
+            .text(line)
+            .attr("x", x)
+            .attr("y", y + i*15)
+            .style("fill", "black")
+            .style("text-anchor", "middle")
+            .style("font-size", "14");
+          // .attr("transform", `rotate(${rotate}, ${x}, ${y})`)
+          // .style("dominant-baseline", "middle");
+        });
       });
 
     // Draw brand and name
@@ -316,8 +326,8 @@ class CameraSlice extends PropertySlice {
   }
 
   getDescription(): string {
-    let score = ((this.value - this.min) / (this.max - this.min));
-    return getQualitativeDescr(score)
+    let score = (this.value - this.min) / (this.max - this.min);
+    return getQualitativeDescr(score);
   }
 }
 
@@ -327,8 +337,8 @@ class BatterySlice extends PropertySlice {
   }
 
   getDescription(): string {
-    let score = ((this.value - this.min) / (this.max - this.min));
-    return getQualitativeDescr(score)
+    let score = (this.value - this.min) / (this.max - this.min);
+    return getQualitativeDescr(score);
   }
 }
 
@@ -338,8 +348,14 @@ class CPUSlice extends PropertySlice {
   }
 
   getDescription(): string {
-    let score = ((this.value - this.min) / (this.max - this.min));
-    return getQualitativeDescr(score)
+    let score = ((this.value - this.min) / (this.max - this.min)) * 10;
+    if (score > 7) {
+      return "Geschikt voor\nintensieve apps";
+    } else if (score > 4) {
+      return "Snel genoeg voor\nmeeste apps";
+    } else {
+      return "Enkel simpele\napps";
+    }
   }
 }
 

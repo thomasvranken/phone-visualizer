@@ -90,7 +90,7 @@ export class BarChart extends Graph {
       .attr("x", "50%")
       .attr("y", "37")
       .style("text-anchor", "middle")
-      .style("font-size", 12)
+      .style("font-size", 14)
       .style("fill", "gray")
       .text(this.notes);
 
@@ -140,7 +140,7 @@ export class BarChart extends Graph {
         })`;
       })
       .style("text-anchor", "middle")
-      .style("font-size", "10")
+      .style("font-size", "13")
       // .style("text-shadow", "1px 1px 2px black");
       .style("font-weight", "bold");
     // .style("dominant-baseline", "middle")
@@ -292,7 +292,7 @@ export class BasePriceChart extends BarChart {
 
 export class WorkingMemoryChart extends BarChart {
   constructor() {
-    super("Werkgeheugen", "Werkgeheugen (in GigaByte)", "Hoger is beter");
+    super("Werkgeheugen", "Werkgeheugen in GigaByte (GB)", "Hoger is beter");
   }
   getChartValue(phone: Phone) {
     return phone.memory.ram;
@@ -301,7 +301,7 @@ export class WorkingMemoryChart extends BarChart {
 
 export class StorageChart extends BarChart {
   constructor() {
-    super("Opslag", "Opslagruimte (in GigaByte)", "Hoger is beter");
+    super("Opslag", "Opslagruimte in GigaByte (GB)", "Hoger is beter");
   }
   getChartValue(phone: Phone) {
     return phone.memory.storage;
@@ -338,7 +338,7 @@ export class DisplayMaxBrightnessChart extends BarChart {
     super(
       "Maximum",
       "Maximale helderheid in cd/m²",
-      "Hoger is beter - niet voor elk toestel gekend - tweakers.net"
+      "Bepaalt leesbaarheid bij fel zonlicht - Hoger is beter - Niet voor elk toestel gekend - tweakers.net"
     );
   }
   getChartValue(phone: Phone) {
@@ -354,7 +354,7 @@ export class DisplayMinBrightnessChart extends BarChart {
     super(
       "Minimum",
       "Minimale helderheid in cd/m²",
-      "Lager is beter - niet voor elk toestel gekend - tweakers.net"
+      "Bepaalt leesbaarheid in een donkere ruimte - Lager is beter - niet voor elk toestel gekend - tweakers.net"
     );
   }
   getChartValue(phone: Phone) {

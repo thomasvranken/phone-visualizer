@@ -92,6 +92,8 @@ function Suggestions(props: {
             height={0.7 * calcImgHeight(s)}
             width={0.7 * calcImgWidth(s)}
             alt=""
+            style={{
+              transform:"rotate(90deg)"}}
           ></img>
           {getDescription(s).map((d, i) => (
             <p key={i}>{d}</p>
