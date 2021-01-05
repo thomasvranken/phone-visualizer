@@ -9,7 +9,7 @@ import {
   RAMSizes,
   StorageSizes,
 } from "./repository";
-import { TrackedPhone, Phone } from "./types";
+import { TrackedPhone, Phone, Price } from "./types";
 import smartphoneIcon from "../images/icons/smartphone-icon.png";
 import cameraIcon from "../images/icons/camera.png";
 import batteryIcon from "../images/icons/battery.png";
@@ -17,6 +17,7 @@ import cpuIcon from "../images/icons/cpu_alt.png";
 import ramIcon from "../images/icons/ram.png";
 import storageIcon from "../images/icons/storage.png";
 import osIcon from "../images/icons/os.png";
+import euroIcon from "../images/icons/euro.png";
 import { categoryColors } from "../js/colors";
 
 /**
@@ -26,7 +27,10 @@ const ICON_SIZE = 25;
 /**
  * Distance to draw icons from the center of a phone
  */
-const ICON_RADIUS = 65;
+const ICON_RADIUS = 68;
+
+const minPhonePrice = 99
+const ANTUTU_MIN_SCORE = 5000
 
 /**
  * The main graph, a radial chart displaying the most important properties.
@@ -53,7 +57,7 @@ export class MainGraph extends Graph {
     // NOTE: containerheight is 0 when changing to main for some reason...
     // This is fixed when moving a phone
     if (containerHeight === 0) {
-      containerHeight = 1000;
+      containerHeight = 500;
     }
     super.draw(phoneRepo, trackedPhones, containerWidth, containerHeight);
     if (trackedPhones.length === 0) {
@@ -62,7 +66,7 @@ export class MainGraph extends Graph {
       trackedPhones.forEach((tp) => {
         let phone = phoneRepo.database.find((p) => p.symbolId === tp.id);
         if (phone) {
-          this.drawMainGraph(svgId, phone, tp.rect, phoneRepo);
+          this.drawMainGraph(svgId, phone, tp, tp.rect, phoneRepo);
         }
       });
     }
@@ -71,11 +75,12 @@ export class MainGraph extends Graph {
   drawMainGraph(
     svgId: string,
     smartphone: Phone,
+    trackedPhone: TrackedPhone,
     rect: any,
     phoneRepo: PhoneRepository
   ) {
     const svg = d3.select("#" + svgId);
-    const innerRadius = 50;
+    const innerRadius = 52;
     const outerRadius = 200;
     let phoneAbsX = rect.x + rect.width / 2;
     let phoneAbsY = rect.y + rect.height / 2;
@@ -98,13 +103,14 @@ export class MainGraph extends Graph {
     );
     let cpuSlice = new CPUSlice(
       smartphone.cpu.benchmark,
-      0,
+      ANTUTU_MIN_SCORE,
       phoneRepo.maxProps.cpu
     );
     let ramSlice = new RAMSlice(smartphone.memory.ram);
 
     let storageSlice = new StorageSlice(smartphone.memory.storage);
     let osSlice = new OSSlice(smartphone.os.version, smartphone.os.type);
+    let priceSlice = new PriceSlice(smartphone.price.base, phoneRepo);
 
     let slices = [
       cameraSlice,
@@ -113,15 +119,8 @@ export class MainGraph extends Graph {
       cpuSlice,
       storageSlice,
       osSlice,
+      priceSlice,
     ];
-    let priceVal =
-      smartphone.price.base.eur + smartphone.price.base.cent * 0.01;
-    let generalInfo = {
-      brand: smartphone.brand,
-      name: smartphone.name,
-      price:
-        "€" + (Math.round((priceVal + Number.EPSILON) * 100) / 100).toString(),
-    };
     let segments = slices.length + 1;
     let start = (1 / (2 * segments)) * 2 * Math.PI;
     let end = (2 * Math.PI * (2 * segments - 1)) / (2 * segments);
@@ -136,7 +135,7 @@ export class MainGraph extends Graph {
       .attr("r", outerRadius)
       .attr("stroke", "black")
       .attr("fill", "none")
-      .style("opacity", 0.3);
+      .style("opacity", 0.1);
 
     // Arc generator used for the different slices
     let arcGenerator: any = d3
@@ -176,7 +175,7 @@ export class MainGraph extends Graph {
       .data(slices)
       .enter()
       .append("path")
-      .attr("fill", (s) => s.color)
+      .attr("fill", (s) => trackedPhone.color)
       .attr("d", arcGenerator as any);
 
     // Draw icons
@@ -187,7 +186,7 @@ export class MainGraph extends Graph {
       .append("image")
       .each(function (s, i) {
         let arcLength = (Math.PI * 2) / (slices.length + 1);
-        let angle = arcLength * (i - 0.75);
+        let angle = arcLength * (i - 1.0); //TODO value depends on number of slices somehow
         let x = Math.cos(angle) * ICON_RADIUS;
         let y = Math.sin(angle) * ICON_RADIUS;
         d3.select(this)
@@ -199,7 +198,8 @@ export class MainGraph extends Graph {
           .attr("width", ICON_SIZE)
           .attr("height", ICON_SIZE)
           .attr("transform", (d) => {
-            let res = "translate(" + -ICON_SIZE / 2 + "," + -ICON_SIZE / 2 + ")";
+            let res =
+              "translate(" + -ICON_SIZE / 2 + "," + -ICON_SIZE / 2 + ")";
             return res;
           });
       });
@@ -210,9 +210,9 @@ export class MainGraph extends Graph {
       .data(slices)
       .enter()
       .each(function (s, i) {
-        let textRadius = 110;
+        let textRadius = 120;
         let arcLength = (Math.PI * 2) / (slices.length + 1);
-        let angle = arcLength * (i - 0.75);
+        let angle = arcLength * (i - 1.0); //TODO value depends on number of slices somehow
         let x = Math.cos(angle) * textRadius;
         let y = Math.sin(angle) * textRadius;
         // let rotate = (angle < Math.PI / 2 ) ? -20 : 20
@@ -223,10 +223,11 @@ export class MainGraph extends Graph {
             .classed("descr", true)
             .text(line)
             .attr("x", x)
-            .attr("y", y + i*15)
+            .attr("y", y + i * 15)
             .style("fill", "black")
             .style("text-anchor", "middle")
             .style("font-size", "14");
+          // .style("font-weight", "bold")
           // .attr("transform", `rotate(${rotate}, ${x}, ${y})`)
           // .style("dominant-baseline", "middle");
         });
@@ -238,7 +239,7 @@ export class MainGraph extends Graph {
       .append("g")
       .attr("class", "general")
       .selectAll("general")
-      .data(Object.values(generalInfo))
+      .data([smartphone.brand, smartphone.name])
       .enter()
       .append("text")
       .text((d) => d)
@@ -328,6 +329,23 @@ class CameraSlice extends PropertySlice {
   getDescription(): string {
     let score = (this.value - this.min) / (this.max - this.min);
     return getQualitativeDescr(score);
+  }
+}
+
+class PriceSlice extends PropertySlice {
+  price: Price;
+  constructor(price: Price, phoneRepo: PhoneRepository) {
+    let value = price.eur + 0.01 * price.cent;
+    let prices = phoneRepo.database.map(
+      (p) => p.price.base.eur + 0.01 * p.price.base.cent
+    );
+    let max = Math.max(...prices);
+    super(categoryColors.price, value, minPhonePrice, max, euroIcon);
+    this.price = price;
+  }
+
+  getDescription(): string {
+    return `€${this.price.eur},${this.price.cent}`;
   }
 }
 

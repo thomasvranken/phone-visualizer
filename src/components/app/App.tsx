@@ -83,7 +83,7 @@ function PhoneSpecs(props: {
     repo.setPhoneInActiveUse(phone, active)
     setRepo(repo)
     let newTracked = trackedPhones.filter((tp) => {
-      repo.getPhonesInActiveUse().map((p) => p.symbolId).includes(tp.id)
+      return repo.getPhonesInActiveUse().map((p) => p.symbolId).includes(tp.id)
     })
     setTrackedPhones(newTracked)
   }

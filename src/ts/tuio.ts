@@ -17,7 +17,6 @@ class Tuio {
   tuioClient: any;
   repository: PhoneRepository | undefined;
   constructor() {
-    console.log("create");
     this.tuioClient = new TuioLib.Client({
       host: "ws://localhost:8080"
     });
@@ -25,7 +24,8 @@ class Tuio {
       console.log("connected to TUIO server")
     );
     this.tuioClient.on("refresh", () => this.refresh());
-    this.tuioClient.connect();
+    // Enable this line to connect to the TUIO application
+    // this.tuioClient.connect();
   }
 
   setRepository(repository: PhoneRepository) {

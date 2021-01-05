@@ -88,7 +88,8 @@
                 "compass": true,
                 "barometer": true,
                 "face": false,
-                "sim": "Dual SIM, Nano"
+                "dualSim": true,
+                "grootteSim": "Nano"
             }
         },
         "physical": {
@@ -188,7 +189,8 @@
                 "compass": true,
                 "barometer": false,
                 "face": false,
-                "sim": "Dual SIM (Nano-SIM, dual stand-by)"
+                "dualSim": true,
+                "grootteSim": "Nano"
             }
         },
         "physical": {
@@ -288,7 +290,11 @@
                 "accelero": true,
                 "gyro": true,
                 "proximity": true,
-                "compass": true
+                "compass": true,
+                "barometer": false,
+                "face": false,
+                "dualSim": true,
+                "grootteSim": "Nano"
             }
         },
         "physical": {
@@ -381,7 +387,10 @@
                 "gyro": true,
                 "proximity": true,
                 "compass": true,
-                "barometer": true
+                "barometer": true,
+                "face": false,
+                "dualSim": true,
+                "grootteSim": "Nano"
             }
         },
         "physical": {
@@ -478,7 +487,10 @@
                 "gyro": true,
                 "proximity": true,
                 "compass": true,
-                "barometer": false
+                "barometer": false,
+                "face": false,
+                "dualSim": true,
+                "grootteSim": "Nano"
             }
         },
         "physical": {
@@ -575,7 +587,10 @@
                 "gyro": true,
                 "proximity": true,
                 "compass": true,
-                "barometer": true
+                "barometer": true,
+                "face": false,
+                "dualSim": true,
+                "grootteSim": "Nano SIM + eSIM"
             }
         },
         "physical": {
@@ -671,7 +686,10 @@
                 "gyro": true,
                 "proximity": true,
                 "compass": true,
-                "barometer": true
+                "barometer": true,
+                "face": false,
+                "dualSim": true,
+                "grootteSim": "Nano SIM + eSIM"
             }
         },
         "physical": {
@@ -769,7 +787,9 @@
                 "proximity": true,
                 "compass": true,
                 "barometer": true,
-                "face": true
+                "face": true,
+                "dualSim": false,
+                "grootteSim": "Nano"
             }
         },
         "physical": {
@@ -869,7 +889,8 @@
                 "compass": true,
                 "barometer": true,
                 "face": true,
-                "sim": "Enkel, Nano SIM"
+                "dualSim": false,
+                "grootteSim": "Nano"
             }
         },
         "physical": {

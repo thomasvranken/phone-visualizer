@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Graph } from "../../ts/draw";
-import { TrackedPhone, Phone } from "../../ts/types";
+import { TrackedPhone } from "../../ts/types";
 import { Container } from "@material-ui/core";
 import { PhoneRepository } from "../../ts/repository";
 

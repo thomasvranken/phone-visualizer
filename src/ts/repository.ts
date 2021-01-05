@@ -15,6 +15,7 @@ import {
 import { Phone, OverviewProps, TrackedPhone } from "./types";
 import * as d3 from "d3";
 import moment from "moment";
+import { compPhoneName } from "./phoneUtil";
 
 /**
  * A list containing (semi-)recent android versions since 2016 (from 7 to 11).
@@ -75,7 +76,7 @@ export class PhoneRepository {
    */
   parseData(data: any): Phone[] {
     let result = JSON.parse(JSON.stringify(data));
-    console.log("data before modifying:", result);
+    // console.log("data before modifying:", result);
     result.forEach((d: any) => {
       d.battery.wifi = moment.duration(
         `${d.battery.wifi.hours}:${d.battery.wifi.minutes}`
@@ -105,7 +106,8 @@ export class PhoneRepository {
       }
       d.inActiveUse = true;
     });
-    console.log("data for rest of program:", result);
+    // console.log("data for rest of program:", result);
+    result.sort((a:any,b:any) => compPhoneName(a,b))
     return result;
   }
 
@@ -137,6 +139,15 @@ export class PhoneRepository {
    */
   findPhone(trackedPhone: TrackedPhone) {
     return this.database.find((p) => p.symbolId === trackedPhone.id);
+  }
+
+  /**
+   * Returns the phone associated with the given tracked phone entity.
+   * @param trackedPhone
+   *
+   */
+  findPhoneById(id: number) {
+    return this.database.find((p) => p.symbolId === id);
   }
 }
 

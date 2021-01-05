@@ -30,16 +30,16 @@ export function SelectPhoneDialog(props: {
   }
 
   function onSelectAll() {
-      for (let p of props.phones) {
-        props.onSelectActive(p, true);
-      }
+    for (let p of props.phones) {
+      props.onSelectActive(p, true);
+    }
   }
 
   function onSelectNone() {
     for (let p of props.phones) {
       props.onSelectActive(p, false);
     }
-}
+  }
 
   return (
     <div style={{}}>
@@ -62,23 +62,23 @@ export function SelectPhoneDialog(props: {
           Selecteer smartphones om mee te werken
         </DialogTitle>
         <DialogContent>
-        <FormGroup>
-          {props.phones.map((p) => {
-            return (
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    key={p.name}
-                    color="primary"
-                    checked={p.inActiveUse}
-                    onChange={(event) => onSelect(event, p)}
-                  ></Checkbox>
-                }
-                label={p.brand + " " + p.name}
-              />
-            );
-          })}
-        </FormGroup>
+          <FormGroup>
+            {props.phones.map((p) => {
+              return (
+                <FormControlLabel
+                  key={p.name}
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={p.inActiveUse}
+                      onChange={(event) => onSelect(event, p)}
+                    ></Checkbox>
+                  }
+                  label={p.brand + " " + p.name}
+                />
+              );
+            })}
+          </FormGroup>
         </DialogContent>
         <DialogActions>
           <Button onClick={onSelectAll} color="primary" variant="outlined">

@@ -97,7 +97,6 @@ export class TechnicalSpecs extends Graph {
             .text(entry.fieldDescription)
             .style("font-size", "12px")
             .style("width", "25%");
-          console.log(text);
           let parts = text.split("\n");
           let details = row.append("td");
           for (let part of parts) {

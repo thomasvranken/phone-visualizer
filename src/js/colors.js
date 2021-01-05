@@ -1,6 +1,8 @@
 import * as d3 from "d3";
 import * as colorable from "colorable";
 
+export const BUTTON_COLOR =  d3.schemeCategory10[0]
+
 export const categoryColors = {
   main: d3.schemeCategory10[9],
   price: d3.schemeCategory10[5],

@@ -88,7 +88,8 @@
             "compass": false,
             "barometer": false,
             "face": false,
-            "sim": ""
+            "dualSim": false,
+            "grootteSim": ""
         }
     },
     "physical":{

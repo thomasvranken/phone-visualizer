@@ -1,11 +1,13 @@
 import * as d3 from "d3";
 import { chartId } from "../components/graph/GraphContainer";
 import moment, { Duration } from "moment";
-import { TrackedPhone, Phone, Price, OverviewProps } from "./types";
-import $ from "jquery";
+import { TrackedPhone, Phone } from "./types";
 import { PhoneRepository } from "./repository";
+import { getContrast } from "../js/colors";
+import { getFullName } from "./phoneUtil";
 
 export const svgId = "graph-svg";
+const DEFAULT_BAR_COLOR = "#808080";
 
 export class Graph {
   name: string;
@@ -51,7 +53,6 @@ export class BarChart extends Graph {
     let svg = d3.select("#" + svgId);
     let titlePercent = 0.1;
     let leftPercent = 0.08;
-    const ids = trackedPhones.map((tp) => tp.id);
     let data: BarChartData[] = phones
       .map((p) => {
         return { value: this.getChartValue(p), id: p.symbolId };
@@ -94,6 +95,25 @@ export class BarChart extends Graph {
       .style("fill", "gray")
       .text(this.notes);
 
+    // create a tooltip
+    let tooltip = d3
+      .select("#" + chartId)
+      .append("div")
+      .attr("id", "tooltip")
+      .style("opacity", 0)
+      .style("background-color", "white")
+      .style("border", "solid")
+      .style("border-width", "2px")
+      .style("border-radius", "5px")
+      .style("padding", "5px")
+      .style("position", "absolute")
+      .style("z-index", 5);
+    // let ttImg = tooltip
+    //   .append("div")
+    //   .attr("id","tooltipImg")
+    // .attr("width", "50px")
+    // .attr("height", "100px");
+
     // Draw actual data as bars
     svg
       .selectAll("bar")
@@ -110,13 +130,35 @@ export class BarChart extends Graph {
           return tracked.color;
           // if (ids.includes(d.id)) {
           //   return "red";
-        } else return "#808080";
+        } else return DEFAULT_BAR_COLOR;
         // if (ids.includes(d.id) && this.allPhonesOnStrip(pairs)) {
         //   return color(d.id);
         // } else return "#808080";
+      })
+      .style("stroke-width", 2)
+      .style("stroke", "none")
+      .on("mouseover", function (d: any, i) {
+        d3.select(this).style("stroke", "black");
+      })
+      .on("click", function (d: any, i) {
+        tooltip.style("opacity", 1);
+        let node = d3.select("#" + chartId).node() as any;
+        let rect = node.getBoundingClientRect();
+        let phone = phoneRepo.findPhoneById(d.id) as Phone;
+        // let src = "/images/phones/" + phone.image;
+        let xPos = (x(d.id) || 0) + rect.x;
+        tooltip
+          .html(getFullName(phone))
+          .style("left", xPos + "px")
+          .style("top", d3.mouse(this)[1] + "px");
+        // ttImg.attr("src", src);
+      })
+      .on("mouseleave", function (d: any, i) {
+        tooltip.style("opacity", 0);
+        d3.select(this).style("stroke", "none");
       });
 
-    // Add numerical labels for recognized phones
+    // Add numerical labels
     svg
       .append("g")
       // .attr("class", "labels")
@@ -132,15 +174,13 @@ export class BarChart extends Graph {
       })
       //TODO placement is not completely correct
       .attr("transform", (d: any) => {
-        // return `translate(${(x(d.id) || 0) + x.bandwidth() / 2}, ${
-        //   y(this.convertValue(d.value)) + ((1 - titlePercent) * height) / 2
-        // })`;
         return `translate(${(x(d.id) || 0) + x.bandwidth() / 2}, ${
           y(this.convertValue(d.value)) + 20
         })`;
       })
       .style("text-anchor", "middle")
       .style("font-size", "13")
+      .style("color", getContrast(DEFAULT_BAR_COLOR))
       // .style("text-shadow", "1px 1px 2px black");
       .style("font-weight", "bold");
     // .style("dominant-baseline", "middle")
@@ -259,7 +299,7 @@ export class BatteryVideoChart extends BarChart {
 
   getChartValue(phone: Phone) {
     if (phone.battery.video) {
-      let copy = phone.battery.video as Duration
+      let copy = phone.battery.video as Duration;
       return copy.asHours();
     }
     return undefined;
@@ -337,8 +377,8 @@ export class DisplayMaxBrightnessChart extends BarChart {
   constructor() {
     super(
       "Maximum",
-      "Maximale helderheid in cd/m²",
-      "Bepaalt leesbaarheid bij fel zonlicht - Hoger is beter - Niet voor elk toestel gekend - tweakers.net"
+      "Maximale helderheid in cd/m² (leesbaarheid bij fel zonlicht)",
+      "Hoger is beter - Niet voor elk toestel gekend - tweakers.net"
     );
   }
   getChartValue(phone: Phone) {
@@ -353,8 +393,8 @@ export class DisplayMinBrightnessChart extends BarChart {
   constructor() {
     super(
       "Minimum",
-      "Minimale helderheid in cd/m²",
-      "Bepaalt leesbaarheid in een donkere ruimte - Lager is beter - niet voor elk toestel gekend - tweakers.net"
+      "Minimale helderheid in cd/m² (leesbaarheid in een donkere ruimte)",
+      "Lager is beter - niet voor elk toestel gekend - tweakers.net"
     );
   }
   getChartValue(phone: Phone) {

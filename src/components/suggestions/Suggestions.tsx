@@ -1,4 +1,3 @@
-import { Card } from "@material-ui/core";
 import React from "react";
 import { Category, PriceCategory } from "../../ts/category";
 import { BarChart } from "../../ts/draw";

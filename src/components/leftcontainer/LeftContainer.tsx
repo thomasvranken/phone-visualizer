@@ -1,10 +1,9 @@
 import React from "react";
 import { CategoryRepository } from "../../ts/repository";
 import { Category } from "../../ts/category";
-import { Button, Box, withStyles, Theme } from "@material-ui/core";
+import { Button, Box } from "@material-ui/core";
 import "./LeftContainer.css";
-import * as d3 from "d3";
-import { getContrast } from "../../js/colors";
+import { BUTTON_COLOR, getContrast } from "../../js/colors";
 
 function LeftContainer(props: {
   categories: CategoryRepository;
@@ -93,7 +92,8 @@ export function CatButton(props: {
   // </ColorButton>
   // );
   // More efficient implementation with similar result
-  let background = props.highlight ? props.category.color : "#D3D3D3";
+  // let background = props.highlight ? props.category.color : "#D3D3D3";
+  let background = props.highlight ? BUTTON_COLOR : "#D3D3D3";
   let color = getContrast(background);
   return (
     <Button

@@ -9,7 +9,7 @@ function PhoneStrip(props: {}) {
     backgroundColor: "white"
   }}>
     <div className="mt-4">
-      Plaats hier smartphones
+      Vrije ruimte voor smartphones waarin je geïnteresseerd bent
     </div>
   </div>;
 }
